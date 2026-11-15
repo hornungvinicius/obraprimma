@@ -1,0 +1,130 @@
+---
+import Base from '../../layouts/Base.astro';
+import Quadro from '../../components/Quadro.astro';
+import { getCollection } from 'astro:content';
+import type { Moldura, Passe } from '../../data/obras';
+
+const posts = (await getCollection('blog', ({ data }) => !data.rascunho)).sort(
+  (a, b) => b.data.data.getTime() - a.data.data.getTime(),
+);
+const dataBR = (d: Date) =>
+  d.toLocaleDateString('pt-BR', { day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC' });
+---
+
+<Base
+  title="Blog | Obra Primma Molduraria, Ponta Grossa"
+  description="Dicas de moldura, vidro, passe-partout e impressão de quem trabalha na bancada, em Ponta Grossa, PR."
+>
+  <section class="topo">
+    <div class="wrap">
+      <h1 data-entra="texto">Blog</h1>
+      <p class="lede" data-entra="texto">
+        Perguntas que aparecem no balcão, respondidas com calma. Moldura, vidro, papel, foto antiga.
+      </p>
+    </div>
+  </section>
+
+  <section class="lista" aria-label="Posts">
+    <div class="wrap">
+      <ul>
+        {
+          posts.map((p, i) => (
+            <li class:list={['post', { 'post--inv': i % 2 }]}>
+              <a href={`/blog/${p.id}/`}>
+                {p.data.quadro && (
+                  <div class="post__quadro">
+                    <Quadro
+                      arte={p.data.quadro.arte}
+                      moldura={p.data.quadro.moldura as Moldura}
+                      passe={p.data.quadro.passe as Passe}
+                      alt=""
+                      sizes="(max-width: 760px) 60vw, 22vw"
+                    />
+                  </div>
+                )}
+                <div class="post__texto">
+                  <time datetime={p.data.data.toISOString()}>{dataBR(p.data.data)}</time>
+                  <h2>{p.data.titulo}</h2>
+                  <p>{p.data.descricao}</p>
+                  <span class="link link--seta">Ler</span>
+                </div>
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .topo {
+    padding: clamp(40px, 6vw, 96px) 0 clamp(40px, 6vw, 80px);
+  }
+  .topo .lede {
+    margin-top: 24px;
+    max-width: 34ch;
+  }
+  .lista {
+    padding-bottom: clamp(80px, 10vw, 150px);
+  }
+  ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  .post {
+    border-top: 1px solid var(--linha);
+  }
+  .post a {
+    display: grid;
+    grid-template-columns: 3fr 6fr 3fr;
+    gap: clamp(24px, 4vw, 64px);
+    align-items: center;
+    padding: clamp(40px, 5vw, 72px) 0;
+    text-decoration: none;
+  }
+  .post__quadro {
+    max-width: 300px;
+  }
+  .post--inv .post__quadro {
+    grid-column: 3;
+    grid-row: 1;
+  }
+  .post--inv .post__texto {
+    grid-column: 2;
+    grid-row: 1;
+  }
+  .post__texto {
+    max-width: 38em;
+  }
+  time {
+    font-size: 0.875rem;
+    color: var(--tinta-2);
+  }
+  .post h2 {
+    font-size: clamp(1.8rem, 3.2vw, 2.8rem);
+    margin: 10px 0 16px;
+    transition: color 0.2s;
+  }
+  .post p {
+    color: var(--tinta-2);
+  }
+  .post a:hover h2 {
+    color: var(--sangue);
+  }
+  @media (max-width: 760px) {
+    .post a,
+    .post--inv a {
+      grid-template-columns: 1fr;
+    }
+    .post--inv .post__quadro,
+    .post--inv .post__texto {
+      grid-column: auto;
+      grid-row: auto;
+    }
+    .post__quadro {
+      max-width: 220px;
+    }
+  }
+</style>

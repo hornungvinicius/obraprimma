@@ -1,0 +1,8 @@
+node_modules
+dist
+.astro
+.vercel
+.taste-skill
+shots
+.DS_Store
+.playwright-cli

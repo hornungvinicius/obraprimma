@@ -1,0 +1,112 @@
+---
+import { site, nav } from '../data/site';
+import Confirmar from './Confirmar.astro';
+const ano = new Date().getFullYear();
+---
+
+<footer class="rod">
+  <div class="wrap">
+    <div class="rod__grade">
+      <div class="rod__nome">
+        <p class="rod__marca">Obra Primma</p>
+        <p class="meta">Molduraria em {site.cidade}, {site.uf}.</p>
+      </div>
+
+      <div>
+        <p class="rod__rot">Loja</p>
+        <p>
+          {site.endereco.valor}{!site.endereco.confirmado && <Confirmar />}<br />
+          {site.cidade}, {site.uf}
+        </p>
+      </div>
+
+      <div>
+        <p class="rod__rot">Fale com a gente</p>
+        <p>
+          <a href={site.telefoneLink}>{site.telefone.valor}</a>
+          {!site.telefone.confirmado && <Confirmar />}<br />
+          <a href={site.instagram.url} rel="noopener">Instagram {site.instagram.usuario}</a><br />
+          <a href={site.facebook.url} rel="noopener">Facebook</a>
+        </p>
+      </div>
+
+      <nav aria-label="Rodapé">
+        <p class="rod__rot">Páginas</p>
+        <ul>
+          <li><a href="/">Início</a></li>
+          {
+            nav.map((i) => (
+              <li>
+                <a href={i.href}>{i.label}</a>
+              </li>
+            ))
+          }
+        </ul>
+      </nav>
+    </div>
+
+    <p class="rod__creditos">
+      © {ano} Obra Primma Molduraria. Imagens provisórias: obras em domínio público do Art Institute of
+      Chicago (CC0); foto de oficina de Art Graphics (CC BY-SA 4.0), via Wikimedia Commons.
+    </p>
+  </div>
+</footer>
+
+<style>
+  .rod {
+    border-top: 1px solid var(--linha);
+    padding: 64px 0 32px;
+    font-size: 0.95rem;
+  }
+  .rod__grade {
+    display: grid;
+    grid-template-columns: 1.4fr 1fr 1fr 0.8fr;
+    gap: 40px;
+  }
+  .rod__marca {
+    font-family: var(--display);
+    font-size: 2.2rem;
+    line-height: 1;
+    margin-bottom: 10px;
+  }
+  .rod__rot {
+    font-weight: 600;
+    font-size: 0.8125rem;
+    margin-bottom: 8px;
+  }
+  .rod a {
+    text-decoration: none;
+    display: inline-block;
+    padding: 4px 0;
+  }
+  .rod a:hover {
+    text-decoration: underline;
+  }
+  .rod ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  .rod__creditos {
+    margin: 56px 0 0;
+    font-size: 0.75rem;
+    color: var(--tinta-2);
+    max-width: 80ch;
+  }
+  @media (max-width: 900px) {
+    .rod__grade {
+      grid-template-columns: 1fr 1fr;
+    }
+    .rod__nome {
+      grid-column: 1 / -1;
+    }
+  }
+  @media (max-width: 480px) {
+    .rod__grade {
+      grid-template-columns: 1fr;
+    }
+    .rod a {
+      padding: 10px 0;
+    }
+  }
+</style>

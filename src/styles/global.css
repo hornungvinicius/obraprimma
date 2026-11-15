@@ -1,0 +1,208 @@
+@import '@fontsource/libre-caslon-display/400.css';
+@import '@fontsource/libre-caslon-text/400.css';
+@import '@fontsource/libre-caslon-text/400-italic.css';
+@import '@fontsource/libre-franklin/400.css';
+@import '@fontsource/libre-franklin/500.css';
+@import '@fontsource/libre-franklin/600.css';
+
+:root {
+  /* Cores tiradas da bancada: passe-partout, tinta, nogueira, sangue-de-boi */
+  --papel: #f1ece3;
+  --papel-2: #e8e1d5;
+  --tinta: #1f1a16;
+  --tinta-2: #5a5148;
+  --linha: rgba(31, 26, 22, 0.16);
+  --sangue: #8a2e1d;
+  --nogueira: #2a211b;
+  --nogueira-2: #3a2e25;
+  --ouro: #c2a066;
+  --sobre-escuro: #efe7da;
+
+  --display: 'Libre Caslon Display', 'Libre Caslon Text', Georgia, serif;
+  --serif: 'Libre Caslon Text', Georgia, serif;
+  --sans: 'Libre Franklin', system-ui, sans-serif;
+
+  --margem: clamp(20px, 5vw, 72px);
+  --largura: 1360px;
+  --cabecalho: 76px;
+  color-scheme: light;
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+}
+
+html {
+  -webkit-text-size-adjust: 100%;
+  scroll-padding-top: calc(var(--cabecalho) + 16px);
+}
+
+body {
+  margin: 0;
+  background: var(--papel);
+  color: var(--tinta);
+  font-family: var(--sans);
+  font-size: 1.0625rem;
+  line-height: 1.6;
+  text-rendering: optimizeLegibility;
+  -webkit-font-smoothing: antialiased;
+}
+
+img {
+  max-width: 100%;
+  height: auto;
+}
+
+h1,
+h2,
+h3 {
+  font-family: var(--display);
+  font-weight: 400;
+  line-height: 1.02;
+  letter-spacing: -0.012em;
+  margin: 0;
+  text-wrap: balance;
+}
+
+h1 {
+  font-size: clamp(3rem, 8.4vw, 7.6rem);
+}
+h2 {
+  font-size: clamp(2.3rem, 5vw, 4.4rem);
+}
+h3 {
+  font-family: var(--serif);
+  font-size: 1.5rem;
+  line-height: 1.2;
+  letter-spacing: 0;
+}
+
+p {
+  margin: 0 0 1em;
+  text-wrap: pretty;
+}
+
+a {
+  color: inherit;
+  text-decoration-thickness: 1px;
+  text-underline-offset: 0.18em;
+}
+
+.wrap {
+  width: 100%;
+  max-width: var(--largura);
+  margin-inline: auto;
+  padding-inline: var(--margem);
+}
+
+.lede {
+  font-family: var(--serif);
+  font-style: italic;
+  font-size: clamp(1.25rem, 1.9vw, 1.55rem);
+  line-height: 1.4;
+  color: var(--tinta);
+}
+
+.meta {
+  font-size: 0.8125rem;
+  line-height: 1.45;
+  color: var(--tinta-2);
+}
+
+/* link de texto com sublinhado que se desenha */
+.link {
+  font-family: var(--sans);
+  font-weight: 500;
+  text-decoration: none;
+  background: linear-gradient(currentColor, currentColor) 0 100% / 100% 1px no-repeat;
+  padding-bottom: 3px;
+  transition: background-size 0.35s cubic-bezier(0.2, 0.7, 0.2, 1);
+}
+.link:hover {
+  background-size: 0% 1px;
+  background-position: 100% 100%;
+}
+.link--seta::after {
+  content: ' →';
+  font-family: var(--sans);
+}
+
+.botao {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6em;
+  min-height: 48px;
+  padding: 0 1.4em;
+  border: 1px solid currentColor;
+  font-family: var(--sans);
+  font-weight: 500;
+  font-size: 0.95rem;
+  text-decoration: none;
+  transition:
+    background-color 0.2s,
+    color 0.2s,
+    transform 0.12s;
+}
+.botao:hover {
+  background: var(--tinta);
+  color: var(--papel);
+  border-color: var(--tinta);
+}
+.botao:active {
+  transform: translateY(1px);
+}
+
+:focus-visible {
+  outline: 2px solid var(--sangue);
+  outline-offset: 3px;
+}
+
+.pular {
+  position: absolute;
+  left: 12px;
+  top: -60px;
+  z-index: 100;
+  background: var(--tinta);
+  color: var(--papel);
+  padding: 10px 14px;
+}
+.pular:focus {
+  top: 12px;
+}
+
+/* dado ainda não confirmado com a loja */
+.confirmar {
+  display: inline-block;
+  font-family: var(--sans);
+  font-style: normal;
+  font-weight: 600;
+  font-size: 0.68rem;
+  letter-spacing: 0.06em;
+  line-height: 1;
+  color: var(--sangue);
+  border: 1px dashed var(--sangue);
+  padding: 3px 5px 2px;
+  vertical-align: 0.2em;
+  margin-left: 0.4em;
+}
+
+.sr-only {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  overflow: hidden;
+  clip: rect(0 0 0 0);
+  white-space: nowrap;
+}
+
+/* conteúdo que o GSAP anima: visível por padrão, escondido só quando o script assume */
+html.js [data-entra] {
+  visibility: hidden;
+}
+@media (prefers-reduced-motion: reduce) {
+  html.js [data-entra] {
+    visibility: visible;
+  }
+}

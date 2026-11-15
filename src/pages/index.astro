@@ -1,0 +1,368 @@
+---
+import Base from '../layouts/Base.astro';
+import Quadro from '../components/Quadro.astro';
+import Trabalho from '../components/Trabalho.astro';
+import Montagem from '../components/Montagem.astro';
+import Visita from '../components/Visita.astro';
+import { obras, molduras, type Moldura } from '../data/obras';
+import { getCollection } from 'astro:content';
+
+// Ordem e posição de cada trabalho na grade da home (colunas de 12).
+const grade: { slug: string; col: string; desce?: string }[] = [
+  { slug: 'rua-de-paris-chuva', col: '1 / 8' },
+  { slug: 'la-berceuse', col: '9 / 13', desce: '14vw' },
+  { slug: 'grous-na-neve', col: '2 / 5' },
+  { slug: 'magnolias', col: '6 / 12', desce: '10vw' },
+  { slug: 'trio-neve', col: '1 / 9' },
+  { slug: 'cabare', col: '10 / 13', desce: '6vw' },
+  { slug: 'mar-renoir', col: '3 / 9' },
+  { slug: 'vaso-verde', col: '10 / 13', desce: '12vw' },
+];
+const itens = grade.map((g) => ({ ...g, obra: obras.find((o) => o.slug === g.slug)! }));
+
+const posts = (await getCollection('blog', ({ data }) => !data.rascunho))
+  .sort((a, b) => b.data.data.getTime() - a.data.data.getTime())
+  .slice(0, 3);
+
+const dataBR = (d: Date) =>
+  d.toLocaleDateString('pt-BR', { day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC' });
+
+const amostras = Object.entries(molduras) as [Moldura, { nome: string; nota: string }][];
+---
+
+<Base
+  title="Obra Primma Molduraria | Molduras e impressão de quadros em Ponta Grossa"
+  description="Molduraria em Ponta Grossa, PR. Imprimimos reprodução de pintura, fotografia e gravura e fazemos a moldura na loja."
+>
+  <section class="hero">
+    <div class="wrap hero__grade">
+      <div class="hero__texto">
+        <h1 data-entra="texto">Molduraria em Ponta Grossa</h1>
+        <p class="lede" data-entra="texto">
+          A gente imprime a obra e faz a moldura, as duas coisas aqui na loja. Pintura, foto de família,
+          gravura, o que você trouxer.
+        </p>
+        <div class="hero__acoes" data-entra="texto">
+          <a class="botao" href="/trabalhos/">Ver os trabalhos</a>
+          <a class="link" href="#visita-titulo">Endereço e horário</a>
+        </div>
+      </div>
+
+      <div class="hero__parede">
+        <div class="hero__q hero__q--a" data-entra="quadro">
+          <Quadro
+            arte="flores-fantin-latour"
+            moldura="dourada"
+            passe="flutuante"
+            alt="Reprodução de natureza-morta com flores de Fantin-Latour, em tela, com moldura dourada"
+            sizes="(max-width: 900px) 70vw, 36vw"
+            eager
+          />
+        </div>
+        <div class="hero__q hero__q--b" data-entra="quadro">
+          <Quadro
+            arte="a-carta"
+            moldura="branca"
+            passe="branco"
+            alt="Gravura A carta, de Mary Cassatt, com passe-partout branco e moldura branca"
+            sizes="(max-width: 900px) 34vw, 16vw"
+            eager
+          />
+        </div>
+        <div class="hero__q hero__q--c" data-entra="quadro">
+          <Quadro
+            arte="oliveira-nice"
+            moldura="caixa-preta"
+            passe="branco"
+            alt="Fotografia de uma oliveira, em preto e branco, com passe-partout branco e moldura caixa preta"
+            sizes="(max-width: 900px) 34vw, 16vw"
+            eager
+          />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <section class="obras" aria-labelledby="obras-titulo">
+    <div class="wrap">
+      <div class="obras__topo">
+        <h2 id="obras-titulo">Alguns trabalhos da bancada</h2>
+        <p>
+          Reprodução de pintura em tela, gravura com passe-partout, foto antiga ampliada. A moldura de cada
+          peça foi escolhida com a obra na mão, encostada nas amostras.
+        </p>
+      </div>
+
+      <div class="obras__grade">
+        {
+          itens.map(({ obra, col, desce }) => (
+            <div class="obras__item" style={`--col:${col};--desce:${desce ?? '0px'}`}>
+              <Trabalho obra={obra} sizes="(max-width: 760px) 80vw, 45vw" />
+            </div>
+          ))
+        }
+      </div>
+
+      <p class="obras__mais">
+        <a class="link link--seta" href="/trabalhos/">Todos os trabalhos, por tipo</a>
+      </p>
+    </div>
+  </section>
+
+  <Montagem />
+
+  <section class="amostras" aria-labelledby="amostras-titulo">
+    <div class="wrap">
+      <div class="amostras__topo">
+        <h2 id="amostras-titulo">Parede de amostras</h2>
+        <p>
+          Na loja as réguas ficam penduradas lado a lado. Você encosta a obra em cada uma e vê na hora qual
+          funciona. Estas são algumas.
+        </p>
+      </div>
+      <ul class="amostras__lista">
+        {
+          amostras.map(([id, m]) => (
+            <li>
+              <div class="amostra">
+                <Quadro arte="hamamatsu" moldura={id} passe="creme" alt="" sizes="360px" />
+              </div>
+              <p class="amostra__nome">{m.nome}</p>
+              <p class="meta">{m.nota}</p>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </section>
+
+  <section class="blog-previa" aria-labelledby="blog-titulo">
+    <div class="wrap blog-previa__grade">
+      <h2 id="blog-titulo">Do blog</h2>
+      <ul>
+        {
+          posts.map((p) => (
+            <li>
+              <a href={`/blog/${p.id}/`}>
+                <time datetime={p.data.data.toISOString()}>{dataBR(p.data.data)}</time>
+                <span class="blog-previa__titulo">{p.data.titulo}</span>
+              </a>
+            </li>
+          ))
+        }
+      </ul>
+    </div>
+  </section>
+
+  <Visita />
+</Base>
+
+<style>
+  /* hero */
+  .hero {
+    min-height: calc(100svh - var(--cabecalho));
+    display: flex;
+    align-items: center;
+    padding: 24px 0 72px;
+  }
+  .hero__grade {
+    display: grid;
+    grid-template-columns: 4.3fr 7.7fr;
+    gap: clamp(32px, 5vw, 80px);
+    align-items: center;
+  }
+  .hero h1 {
+    max-width: 7ch;
+  }
+  .hero .lede {
+    margin: 32px 0 36px;
+    max-width: 30ch;
+  }
+  .hero__acoes {
+    display: flex;
+    align-items: center;
+    gap: 28px;
+    flex-wrap: wrap;
+  }
+  .hero__parede {
+    display: grid;
+    grid-template-columns: 6.6fr 3.4fr;
+    grid-template-rows: auto auto;
+    gap: clamp(20px, 3vw, 44px);
+    align-items: start;
+  }
+  .hero__q--a {
+    grid-row: 1 / 3;
+  }
+  .hero__q--b {
+    margin-top: 6%;
+  }
+
+  /* trabalhos */
+  .obras {
+    padding: clamp(72px, 9vw, 140px) 0 clamp(80px, 10vw, 160px);
+  }
+  .obras__topo {
+    display: grid;
+    grid-template-columns: 7fr 4fr;
+    gap: 40px;
+    align-items: end;
+    margin-bottom: clamp(48px, 7vw, 110px);
+  }
+  .obras__topo h2 {
+    max-width: 11ch;
+  }
+  .obras__topo p {
+    margin: 0;
+    color: var(--tinta-2);
+    max-width: 38ch;
+  }
+  .obras__grade {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    column-gap: clamp(16px, 2.4vw, 36px);
+    row-gap: clamp(56px, 7vw, 110px);
+    align-items: start;
+  }
+  .obras__item {
+    grid-column: var(--col);
+    margin-top: var(--desce);
+  }
+  .obras__mais {
+    margin: clamp(56px, 7vw, 100px) 0 0;
+    text-align: right;
+    font-size: 1.1rem;
+  }
+
+  /* amostras */
+  .amostras {
+    padding: clamp(80px, 10vw, 150px) 0;
+  }
+  .amostras__topo {
+    display: grid;
+    grid-template-columns: 5fr 5fr;
+    gap: 40px;
+    align-items: end;
+    margin-bottom: 56px;
+  }
+  .amostras__topo p {
+    margin: 0;
+    color: var(--tinta-2);
+    max-width: 40ch;
+  }
+  .amostras__lista {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    display: grid;
+    grid-template-columns: repeat(7, 1fr);
+    gap: clamp(12px, 1.6vw, 24px);
+  }
+  .amostra {
+    aspect-ratio: 1;
+    overflow: hidden;
+    position: relative;
+  }
+  .amostra :global(.quadro) {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 260%;
+  }
+  .amostra :global(.quadro__moldura) {
+    box-shadow: none;
+  }
+  .amostra__nome {
+    font-family: var(--serif);
+    margin: 14px 0 0;
+    line-height: 1.3;
+  }
+
+  /* blog */
+  .blog-previa {
+    padding: 0 0 clamp(80px, 10vw, 150px);
+  }
+  .blog-previa__grade {
+    display: grid;
+    grid-template-columns: 4fr 8fr;
+    gap: 40px;
+    border-top: 1px solid var(--linha);
+    padding-top: 40px;
+  }
+  .blog-previa ul {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+  }
+  .blog-previa li {
+    border-bottom: 1px solid var(--linha);
+  }
+  .blog-previa a {
+    display: grid;
+    grid-template-columns: 11em 1fr;
+    gap: 24px;
+    align-items: baseline;
+    padding: 22px 0;
+    text-decoration: none;
+  }
+  .blog-previa time {
+    font-size: 0.875rem;
+    color: var(--tinta-2);
+  }
+  .blog-previa__titulo {
+    font-family: var(--serif);
+    font-size: clamp(1.25rem, 2vw, 1.6rem);
+    line-height: 1.25;
+    transition: color 0.2s;
+  }
+  .blog-previa a:hover .blog-previa__titulo {
+    color: var(--sangue);
+  }
+
+  @media (max-width: 1100px) {
+    .amostras__lista {
+      grid-template-columns: repeat(4, 1fr);
+    }
+  }
+  @media (max-width: 900px) {
+    .hero {
+      min-height: 0;
+      padding-top: 16px;
+    }
+    .hero__grade,
+    .obras__topo,
+    .amostras__topo,
+    .blog-previa__grade {
+      grid-template-columns: 1fr;
+    }
+    .hero h1 {
+      max-width: 10ch;
+    }
+    .hero .lede {
+      margin: 20px 0 28px;
+    }
+  }
+  @media (max-width: 760px) {
+    .obras__grade {
+      grid-template-columns: repeat(6, 1fr);
+    }
+    .obras__item {
+      grid-column: 1 / 6;
+      margin-top: 0;
+    }
+    .obras__item:nth-child(even) {
+      grid-column: 2 / 7;
+    }
+    .amostras__lista {
+      grid-template-columns: repeat(2, 1fr);
+      row-gap: 32px;
+    }
+    .blog-previa a {
+      grid-template-columns: 1fr;
+      gap: 4px;
+    }
+    .obras__mais {
+      text-align: left;
+    }
+  }
+</style>

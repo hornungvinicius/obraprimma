@@ -1,0 +1,167 @@
+---
+import Base from '../layouts/Base.astro';
+import Trabalho from '../components/Trabalho.astro';
+import { categorias, obrasPorCategoria } from '../data/obras';
+import { site } from '../data/site';
+
+// Colunas alternadas por categoria, para a página não ficar com o mesmo ritmo do começo ao fim.
+const ritmos = [
+  ['1 / 6', '7 / 13', '2 / 6', '7 / 11', '1 / 5', '6 / 13'],
+  ['1 / 5', '6 / 9', '10 / 13', '2 / 7', '8 / 12'],
+  ['1 / 5', '6 / 10', '10 / 13', '3 / 7'],
+  ['1 / 8', '8 / 13'],
+];
+const desce = ['0', '8vw', '3vw', '0', '10vw', '4vw'];
+---
+
+<Base
+  title="Trabalhos | Obra Primma Molduraria, Ponta Grossa"
+  description="Reproduções de pintura, gravuras, aquarelas e fotografias impressas e emolduradas pela Obra Primma, molduraria em Ponta Grossa, PR."
+>
+  <section class="topo">
+    <div class="wrap topo__grade">
+      <h1 data-entra="texto">Trabalhos</h1>
+      <div data-entra="texto">
+        <p class="lede">
+          O que passa pela bancada, separado por tipo. A mesma reprodução fica outra coisa com outra
+          moldura, por isso cada peça vem com o que foi usado nela.
+        </p>
+        <nav class="topo__cats" aria-label="Tipos de trabalho">
+          {categorias.map((c) => <a class="link" href={`#${c.id}`}>{c.nome}</a>)}
+        </nav>
+      </div>
+    </div>
+  </section>
+
+  {
+    categorias.map((c, ci) => {
+      const lista = obrasPorCategoria(c.id);
+      const ritmo = ritmos[ci % ritmos.length];
+      return (
+        <section class="cat" id={c.id} aria-labelledby={`t-${c.id}`}>
+          <div class="wrap">
+            <div class="cat__topo">
+              <h2 id={`t-${c.id}`}>{c.nome}</h2>
+              <p>{c.texto}</p>
+            </div>
+            <div class="cat__grade">
+              {lista.map((o, i) => (
+                <div
+                  class="cat__item"
+                  style={`--col:${ritmo[i % ritmo.length]};--desce:${i < 2 && i % 2 === 0 ? '0' : desce[i % desce.length]}`}
+                >
+                  <Trabalho obra={o} sizes="(max-width: 760px) 80vw, 40vw" />
+                </div>
+              ))}
+            </div>
+          </div>
+        </section>
+      );
+    })
+  }
+
+  <section class="fim">
+    <div class="wrap fim__grade">
+      <h2>Mais trabalhos no Instagram</h2>
+      <p>
+        No Instagram da loja tem mais peças prontas, com outras molduras e outros tamanhos.
+      </p>
+      <a class="botao" href={site.instagram.url} rel="noopener">Abrir {site.instagram.usuario}</a>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .topo {
+    padding: clamp(40px, 6vw, 96px) 0 clamp(48px, 7vw, 110px);
+  }
+  .topo__grade {
+    display: grid;
+    grid-template-columns: 6fr 6fr;
+    gap: 40px;
+    align-items: end;
+  }
+  .topo .lede {
+    margin: 0 0 28px;
+    max-width: 34ch;
+  }
+  .topo__cats {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 10px 28px;
+  }
+  .topo__cats a {
+    display: inline-block;
+    padding: 8px 0 3px;
+  }
+  .cat {
+    padding: clamp(56px, 7vw, 110px) 0;
+    border-top: 1px solid var(--linha);
+  }
+  .cat__topo {
+    display: grid;
+    grid-template-columns: 6fr 5fr;
+    gap: 40px;
+    align-items: end;
+    margin-bottom: clamp(40px, 6vw, 90px);
+  }
+  .cat__topo h2 {
+    max-width: 12ch;
+  }
+  .cat__topo p {
+    margin: 0;
+    color: var(--tinta-2);
+    max-width: 40ch;
+  }
+  .cat__grade {
+    display: grid;
+    grid-template-columns: repeat(12, 1fr);
+    column-gap: clamp(16px, 2.4vw, 36px);
+    row-gap: clamp(56px, 7vw, 100px);
+    align-items: start;
+  }
+  .cat__item {
+    grid-column: var(--col);
+    margin-top: var(--desce);
+  }
+  .fim {
+    background: var(--papel-2);
+    padding: clamp(72px, 9vw, 130px) 0;
+  }
+  .fim__grade {
+    display: grid;
+    grid-template-columns: 6fr 4fr auto;
+    gap: 32px 48px;
+    align-items: end;
+  }
+  .fim h2 {
+    max-width: 12ch;
+  }
+  .fim p {
+    margin: 0;
+    color: var(--tinta-2);
+  }
+  @media (max-width: 900px) {
+    .topo__grade,
+    .cat__topo,
+    .fim__grade {
+      grid-template-columns: 1fr;
+    }
+  }
+  @media (max-width: 760px) {
+    .cat__grade {
+      grid-template-columns: repeat(6, 1fr);
+    }
+    .cat__item {
+      grid-column: 1 / 6;
+      margin-top: 0;
+    }
+    .cat__item:nth-child(even) {
+      grid-column: 2 / 7;
+    }
+    .fim .botao {
+      width: 100%;
+      justify-content: center;
+    }
+  }
+</style>

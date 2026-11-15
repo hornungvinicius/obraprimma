@@ -1,0 +1,42 @@
+---
+import Base from '../layouts/Base.astro';
+import Quadro from '../components/Quadro.astro';
+---
+
+<Base title="Página não encontrada | Obra Primma" description="Essa página não existe no site da Obra Primma.">
+  <section class="nao">
+    <div class="wrap nao__grade">
+      <div>
+        <h1>Moldura vazia</h1>
+        <p class="lede">Essa página não existe, ou mudou de lugar.</p>
+        <p><a class="link link--seta" href="/">Voltar para o início</a></p>
+      </div>
+      <div class="nao__quadro">
+        <Quadro arte="porte-de-gentilly" moldura="carvalho" passe="branco" alt="" sizes="30vw" />
+      </div>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .nao {
+    padding: clamp(48px, 8vw, 140px) 0;
+  }
+  .nao__grade {
+    display: grid;
+    grid-template-columns: 7fr 4fr;
+    gap: 48px;
+    align-items: center;
+  }
+  .nao .lede {
+    margin: 24px 0;
+  }
+  @media (max-width: 760px) {
+    .nao__grade {
+      grid-template-columns: 1fr;
+    }
+    .nao__quadro {
+      max-width: 260px;
+    }
+  }
+</style>

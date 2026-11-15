@@ -1,0 +1,90 @@
+---
+import Base from '../layouts/Base.astro';
+import Visita from '../components/Visita.astro';
+import { site } from '../data/site';
+---
+
+<Base
+  title="Contato e endereço | Obra Primma Molduraria, Ponta Grossa"
+  description="Endereço, telefone e mapa da Obra Primma, molduraria em Ponta Grossa, PR."
+>
+  <Visita titulo="Contato e endereço" nivel="h1" />
+
+  <section class="trazer" aria-labelledby="trazer-titulo">
+    <div class="wrap trazer__grade">
+      <h2 id="trazer-titulo">O que levar na primeira visita</h2>
+      <ol>
+        <li>
+          <div><strong>A peça ou o arquivo.</strong> Foto em papel, pôster, gravura, tela. Se for imprimir, o
+          arquivo no celular ou no pen drive, no maior tamanho que você tiver.
+</div>
+        </li>
+        <li>
+          <div><strong>A medida do lugar.</strong> Largura da parede ou do espaço sobre o móvel. Ajuda a decidir
+          o tamanho da impressão e a largura da moldura.
+</div>
+        </li>
+        <li>
+          <div><strong>Uma foto da parede.</strong> Com luz do dia, para ver a cor do ambiente junto com as
+          amostras.
+</div>
+        </li>
+      </ol>
+      <p class="trazer__nota">
+        Ficou alguma dúvida antes de ir? Liga na loja, no <a href={site.telefoneLink}>{site.telefone.valor}</a>,
+        ou manda mensagem pelo <a href={site.instagram.url} rel="noopener">Instagram</a>.
+      </p>
+    </div>
+  </section>
+</Base>
+
+<style>
+  .trazer {
+    padding: clamp(72px, 9vw, 130px) 0;
+  }
+  .trazer__grade {
+    display: grid;
+    grid-template-columns: 5fr 7fr;
+    gap: 24px clamp(32px, 6vw, 96px);
+  }
+  .trazer h2 {
+    max-width: 12ch;
+    grid-row: span 2;
+  }
+  ol {
+    margin: 0;
+    padding: 0;
+    list-style: none;
+    counter-reset: n;
+  }
+  li {
+    counter-increment: n;
+    display: grid;
+    grid-template-columns: 2.6em 1fr;
+    padding: 20px 0;
+    border-top: 1px solid var(--linha);
+    color: var(--tinta-2);
+  }
+  li::before {
+    content: counter(n, decimal-leading-zero);
+    font-family: var(--serif);
+    font-style: italic;
+    color: var(--sangue);
+  }
+  strong {
+    color: var(--tinta);
+    font-weight: 600;
+  }
+  .trazer__nota {
+    margin: 12px 0 0 2.6em;
+    color: var(--tinta-2);
+  }
+  @media (max-width: 900px) {
+    .trazer__grade {
+      grid-template-columns: 1fr;
+    }
+    .trazer h2 {
+      grid-row: auto;
+    }
+  }
+</style>

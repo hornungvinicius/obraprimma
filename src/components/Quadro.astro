@@ -1,0 +1,215 @@
+---
+// Um quadro montado: arte + passe-partout + moldura desenhada em CSS.
+// Com `foto`, mostra a foto real do trabalho pronto e dispensa a moldura desenhada.
+import { Image } from 'astro:assets';
+import { img, type Moldura, type Passe } from '../data/obras';
+
+interface Props {
+  arte?: string;
+  moldura?: Moldura;
+  passe?: Passe;
+  foto?: string;
+  alt: string;
+  sizes?: string;
+  eager?: boolean;
+  class?: string;
+}
+
+const {
+  arte,
+  moldura = 'caixa-preta',
+  passe = 'branco',
+  foto,
+  alt,
+  sizes = '(max-width: 760px) 90vw, 40vw',
+  eager = false,
+  class: cls,
+} = Astro.props;
+
+const src = img(foto ?? arte!);
+const widths = [360, 560, 843].filter((w) => w <= src.width);
+---
+
+{
+  foto ? (
+    <div class:list={['quadro quadro--foto', cls]}>
+      <Image src={src} alt={alt} widths={widths} sizes={sizes} loading={eager ? 'eager' : 'lazy'} />
+    </div>
+  ) : (
+    <div class:list={['quadro', cls]} data-moldura={moldura} data-passe={passe}>
+      <div class="quadro__moldura">
+        <div class="quadro__passe">
+          <Image
+            src={src}
+            alt={alt}
+            widths={widths}
+            sizes={sizes}
+            loading={eager ? 'eager' : 'lazy'}
+            fetchpriority={eager ? 'high' : 'auto'}
+          />
+        </div>
+      </div>
+    </div>
+  )
+}
+
+<style>
+  .quadro {
+    container-type: inline-size;
+    --fw: 4;
+    --mat: 10;
+    --mat-cor: #f4f0e8;
+    --face: #222;
+    --veio: rgba(255, 255, 255, 0.04);
+  }
+
+  .quadro__moldura {
+    position: relative;
+    padding: calc(var(--fw) * 1cqi);
+    background: var(--face);
+    box-shadow:
+      inset 0 0 0 1px rgba(255, 255, 255, 0.14),
+      0 1px 0 rgba(0, 0, 0, 0.35),
+      0 26px 38px -22px rgba(40, 26, 14, 0.55),
+      0 8px 14px -8px rgba(40, 26, 14, 0.35);
+    transition:
+      transform 0.35s cubic-bezier(0.2, 0.7, 0.2, 1),
+      box-shadow 0.35s;
+  }
+
+  /* veio e sombreamento dos quatro lados, com o corte em 45 graus */
+  .quadro__moldura::before,
+  .quadro__moldura::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    pointer-events: none;
+  }
+  .quadro__moldura::before {
+    background: repeating-linear-gradient(
+      90deg,
+      transparent 0 3px,
+      var(--veio) 3px 4px,
+      transparent 4px 9px
+    );
+  }
+  .quadro__moldura::after {
+    border-style: solid;
+    border-width: calc(var(--fw) * 1cqi);
+    border-color: rgba(255, 255, 255, 0.2) rgba(0, 0, 0, 0.16) rgba(0, 0, 0, 0.3)
+      rgba(255, 255, 255, 0.08);
+  }
+
+  .quadro__passe {
+    position: relative;
+    z-index: 1;
+    padding: calc(var(--mat) * 1cqi);
+    padding-bottom: calc(var(--mat) * 1.12cqi);
+    background: var(--mat-cor);
+    box-shadow:
+      0 0 0 1px rgba(0, 0, 0, 0.4),
+      inset 1px 3px 6px -2px rgba(0, 0, 0, 0.35);
+  }
+
+  .quadro__passe :global(img) {
+    display: block;
+    width: 100%;
+    height: auto;
+    box-shadow:
+      0 0 0 1px rgba(255, 255, 255, 0.9),
+      0 0 0 2px rgba(0, 0, 0, 0.07);
+  }
+
+  /* passe-partout */
+  [data-passe='creme'] { --mat-cor: #ece3d1; }
+  [data-passe='branco'] { --mat-cor: #f7f5f0; }
+  [data-passe='preto'] { --mat-cor: #1d1b19; }
+  [data-passe='nenhum'] { --mat: 0; }
+  [data-passe='flutuante'] { --mat: 1.6; --mat-cor: #15120f; }
+  [data-passe='flutuante'] .quadro__passe { padding-bottom: calc(var(--mat) * 1cqi); }
+  [data-passe='flutuante'] .quadro__passe :global(img) {
+    box-shadow: 0 2px 5px rgba(0, 0, 0, 0.6);
+  }
+
+  /* molduras */
+  [data-moldura='caixa-preta'] {
+    --fw: 3.2;
+    --face: linear-gradient(180deg, #2a2725, #161413);
+  }
+  [data-moldura='branca'] {
+    --fw: 2.6;
+    --face: linear-gradient(180deg, #fbfaf7, #e9e6df);
+  }
+  [data-moldura='branca'] .quadro__moldura::after {
+    border-color: rgba(255, 255, 255, 0.5) rgba(0, 0, 0, 0.06) rgba(0, 0, 0, 0.12)
+      rgba(255, 255, 255, 0.3);
+  }
+  [data-moldura='carvalho'] {
+    --fw: 2.8;
+    --face: linear-gradient(180deg, #d9bd92, #c2a073);
+    --veio: rgba(110, 70, 30, 0.1);
+  }
+  [data-moldura='freijo'] {
+    --fw: 5;
+    --face: linear-gradient(160deg, #c79b63, #a87a45 55%, #b98c55);
+    --veio: rgba(90, 50, 20, 0.14);
+  }
+  [data-moldura='nogueira'] {
+    --fw: 6;
+    --face: linear-gradient(160deg, #5a3e2b, #3e2a1d 60%, #4b3324);
+    --veio: rgba(0, 0, 0, 0.18);
+  }
+  [data-moldura='prata'] {
+    --fw: 5.5;
+    --face: linear-gradient(140deg, #8d8a84, #d8d5ce 22%, #9a968e 40%, #e4e1db 58%, #8a867f 80%, #bdb9b1);
+    --veio: rgba(0, 0, 0, 0.03);
+  }
+  [data-moldura='prata'] .quadro__passe {
+    box-shadow:
+      0 0 0 1px rgba(0, 0, 0, 0.45),
+      0 0 0 calc(var(--fw) * 0.14cqi) #75716a,
+      0 0 0 calc(var(--fw) * 0.22cqi) #e8e5df,
+      inset 1px 3px 6px -2px rgba(0, 0, 0, 0.35);
+  }
+  [data-moldura='dourada'] {
+    --fw: 8;
+    --face: linear-gradient(
+      140deg,
+      #6e5220 0%,
+      #c9a45c 16%,
+      #8d6a2c 30%,
+      #e3c583 46%,
+      #a17a35 62%,
+      #d4b16b 80%,
+      #6b4e1c 100%
+    );
+    --veio: rgba(80, 50, 10, 0.025);
+  }
+  [data-moldura='dourada'] .quadro__moldura {
+    box-shadow:
+      inset 0 0 0 1px rgba(255, 240, 200, 0.4),
+      inset 0 0 0 calc(var(--fw) * 0.2cqi) rgba(90, 60, 15, 0.25),
+      0 1px 0 rgba(0, 0, 0, 0.35),
+      0 26px 38px -22px rgba(40, 26, 14, 0.55),
+      0 8px 14px -8px rgba(40, 26, 14, 0.35);
+  }
+  [data-moldura='dourada'] .quadro__passe {
+    box-shadow:
+      0 0 0 1px rgba(60, 40, 10, 0.6),
+      0 0 0 calc(var(--fw) * 0.12cqi) #5c4418,
+      0 0 0 calc(var(--fw) * 0.2cqi) #ecd59a,
+      0 0 0 calc(var(--fw) * 0.26cqi) #7a5a22,
+      inset 1px 3px 6px -2px rgba(0, 0, 0, 0.35);
+  }
+
+  .quadro--foto :global(img) {
+    display: block;
+    width: 100%;
+    height: auto;
+  }
+
+  :global(a:hover) > .quadro .quadro__moldura,
+  :global(a:focus-visible) > .quadro .quadro__moldura {
+    transform: translateY(-3px);
+  }
+</style>
