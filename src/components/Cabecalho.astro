@@ -5,7 +5,6 @@ const atual = Astro.url.pathname;
 
 <header class="cab pag">
   <a href="/" class="cab__marca rotulo" aria-label="Obra Primma, página inicial">Obra Primma</a>
-  <p class="cab__meio rotulo cinza">Molduraria · {site.cidade}, {site.uf}</p>
 
   <button class="cab__menu rotulo" type="button" aria-expanded="false" aria-controls="menu">Menu</button>
 
@@ -22,6 +21,8 @@ const atual = Astro.url.pathname;
       }
     </ul>
   </nav>
+
+  <a class="cab__ig rotulo" href={site.instagram.url} rel="noopener">Instagram</a>
 </header>
 
 <script>
@@ -55,7 +56,18 @@ const atual = Astro.url.pathname;
     min-height: 44px;
   }
   .cab__nav {
+    justify-self: center;
+  }
+  .cab__ig {
     justify-self: end;
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+    text-decoration: none;
+  }
+  .cab__ig:hover {
+    text-decoration: underline;
+    text-underline-offset: 3px;
   }
   .cab__nav ul {
     display: flex;
@@ -83,7 +95,7 @@ const atual = Astro.url.pathname;
     .cab {
       grid-template-columns: 1fr auto;
     }
-    .cab__meio {
+    .cab__ig {
       display: none;
     }
     .cab__menu {

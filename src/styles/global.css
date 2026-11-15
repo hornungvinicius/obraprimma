@@ -13,6 +13,7 @@
   --g: clamp(16px, 2.2vw, 32px); /* margem lateral */
   --gap: clamp(12px, 1.3vw, 20px); /* espaço entre imagens */
   --topo: 56px;
+  --raio: 14px;
   color-scheme: light;
 }
 
@@ -195,4 +196,31 @@ html.js-ok [data-entra] {
   position: relative;
   top: 0.5em;
   margin-left: 0.4em;
+}
+
+.botao {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 48px;
+  padding: 0 28px;
+  border-radius: 999px;
+  background: var(--ink);
+  color: var(--bg);
+  font-size: 12px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  text-decoration: none;
+  transition: transform 0.15s, opacity 0.2s;
+}
+.botao:hover {
+  opacity: 0.85;
+}
+.botao:active {
+  transform: translateY(1px);
+}
+.botao--claro {
+  background: var(--bg);
+  color: var(--ink);
 }

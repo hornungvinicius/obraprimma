@@ -45,6 +45,7 @@ import { site } from '../data/site';
 
   botoes.forEach((b) =>
     b.addEventListener('click', () => {
+      history.replaceState(null, '', b.dataset.filtro === 'todos' ? location.pathname : `#${b.dataset.filtro}`);
       const f = b.dataset.filtro;
       botoes.forEach((x) => x.setAttribute('aria-pressed', String(x === b)));
       const estado = Flip.getState(pecas);
@@ -61,6 +62,10 @@ import { site } from '../data/site';
       });
     }),
   );
+
+  // /trabalhos/#pintura já abre filtrado (links do carrossel da home)
+  const alvo = location.hash.slice(1);
+  if (alvo) document.querySelector<HTMLButtonElement>(`[data-filtro="${CSS.escape(alvo)}"]`)?.click();
 </script>
 
 <style>
