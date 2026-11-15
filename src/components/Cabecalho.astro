@@ -4,7 +4,9 @@ const atual = Astro.url.pathname;
 ---
 
 <header class="cab pag">
-  <a href="/" class="cab__marca rotulo" aria-label="Obra Primma, página inicial">Obra Primma</a>
+  <a href="/" class="cab__marca" aria-label="Obra Primma, página inicial">
+    <img src="/logo.svg" alt="Obra Primma, quadros e molduras" width="1140" height="885" />
+  </a>
 
   <button class="cab__menu rotulo" type="button" aria-expanded="false" aria-controls="menu">Menu</button>
 
@@ -49,11 +51,13 @@ const atual = Astro.url.pathname;
   }
   .cab__marca {
     justify-self: start;
-    text-decoration: none;
-    font-size: 12px;
     display: inline-flex;
     align-items: center;
     min-height: 44px;
+  }
+  .cab__marca img {
+    height: 62px;
+    width: auto;
   }
   .cab__nav {
     justify-self: center;
@@ -82,7 +86,9 @@ const atual = Astro.url.pathname;
     min-height: 44px;
     text-decoration: none;
   }
-  .cab__nav a:hover,
+  .cab__nav a:hover {
+    color: var(--vinho);
+  }
   .cab__nav a[aria-current='page'] {
     text-decoration: underline;
     text-underline-offset: 3px;
@@ -115,6 +121,9 @@ const atual = Astro.url.pathname;
     .cab__marca {
       position: relative;
       z-index: 2;
+    }
+    .cab__marca img {
+      height: 46px;
     }
     .cab__nav {
       display: none;

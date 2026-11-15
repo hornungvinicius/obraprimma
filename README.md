@@ -35,8 +35,20 @@ todas de uma vez, `mostrarConfirmar: false`.
 | Ano de abertura e história | Não encontrado. O texto da página Sobre tem as lacunas marcadas. | `src/pages/sobre.astro` |
 | Serviços | Impressão + moldura (confirmado por vocês). Espelhos aparece no nome da loja em uma lista pública. No Google Maps a loja aparece como "Obra Primma Molduras e Quadros Fine Art". | `src/pages/sobre.astro` |
 | Categorias do portfólio | Montadas sem acesso ao Instagram. Ajustar ao que a loja mais faz (camisa de time, diploma, espelho etc.). | `src/data/obras.ts` |
-| Logo | Não encontrado. O site usa o nome escrito em Archivo. | `src/components/Cabecalho.astro` |
 | Domínio | Placeholder `obraprimma.com.br`. | `astro.config.mjs` |
+
+## Logo e cores
+
+A logo foi vetorizada a partir do arquivo enviado pela loja: `public/logo.svg` (colorida),
+`public/logo-claro.svg` (para fundo escuro) e `public/favicon.svg` (só o símbolo).
+
+| Cor | Hex | Onde |
+|---|---|---|
+| Ameixa | `#583A42` | moldura e letreiro da logo; texto, títulos, botões e rodapé |
+| Vinho | `#6D2F30` | quadrado da logo; palavras em itálico, estados ativos e hover |
+| Creme | `#F4F0EC` | fundo |
+
+Os tokens ficam no começo de `src/styles/global.css`.
 
 ## Wireframe
 

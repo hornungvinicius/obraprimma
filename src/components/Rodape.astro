@@ -5,74 +5,98 @@ const ano = new Date().getFullYear();
 
 <footer class="rod">
   <div class="pag">
-    <p class="rod__marca display" aria-hidden="true">Obra <em>Primma</em></p>
-    <nav class="rod__nav" aria-label="Rodapé">
-      <a class="rotulo" href="/">Início</a>
-      {nav.map((i) => <a class="rotulo" href={i.href}>{i.label}</a>)}
-      <a class="rotulo" href={site.instagram.url} rel="noopener">Instagram</a>
-      <a class="rotulo" href={site.facebook.url} rel="noopener">Facebook</a>
-    </nav>
+    <div class="rod__topo">
+      <a href="/" class="rod__logo" aria-label="Obra Primma, página inicial">
+        <img src="/logo-claro.svg" alt="Obra Primma, quadros e molduras" width="1140" height="885" loading="lazy" />
+      </a>
+      <div class="rod__cols">
+        <nav aria-label="Rodapé">
+          <p class="rotulo rod__rot">Páginas</p>
+          <a href="/">Início</a>
+          {nav.map((i) => <a href={i.href}>{i.label}</a>)}
+        </nav>
+        <div>
+          <p class="rotulo rod__rot">Redes</p>
+          <a href={site.instagram.url} rel="noopener">Instagram</a>
+          <a href={site.facebook.url} rel="noopener">Facebook</a>
+        </div>
+        <div>
+          <p class="rotulo rod__rot">Loja</p>
+          <p>{site.endereco.valor}<br />{site.cidade}, {site.uf}</p>
+          <a href={site.telefoneLink}>{site.telefone.valor}</a>
+        </div>
+      </div>
+    </div>
     <div class="rod__fim">
-      <p>© {ano} Obra Primma Molduraria, {site.cidade}, {site.uf}</p>
-      <p>Molduraria e impressão</p>
+      <p>© {ano} Obra Primma Molduraria</p>
+      <p>Quadros e molduras em {site.cidade}</p>
     </div>
   </div>
 </footer>
 
 <style>
   .rod {
-    background: var(--ink);
-    color: #ededea;
-    padding: clamp(48px, 7vw, 96px) 0 24px;
-    overflow: hidden;
+    background: var(--ameixa);
+    color: var(--creme);
+    padding: clamp(56px, 7vw, 104px) 0 20px;
   }
-  .rod__marca {
-    font-size: clamp(3rem, 14.2vw, 15.5rem);
-    white-space: nowrap;
-    margin-left: -0.04em;
+  .rod__topo {
+    display: grid;
+    grid-template-columns: 5fr 7fr;
+    gap: 48px;
+    align-items: start;
   }
-  .rod__nav {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: space-between;
-    gap: 8px 24px;
-    border-top: 1px solid #3a3a38;
-    margin-top: clamp(32px, 4vw, 56px);
-    padding-top: 8px;
+  .rod__logo img {
+    width: clamp(200px, 24vw, 340px);
+    height: auto;
   }
-  .rod__nav a {
+  .rod__cols {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 32px;
+  }
+  .rod__cols > * {
+    display: grid;
+    align-content: start;
+    gap: 2px;
+  }
+  .rod__rot {
+    color: #c9b8bc;
+    margin-bottom: 8px;
+  }
+  .rod a {
     text-decoration: none;
     display: inline-flex;
     align-items: center;
-    min-height: 44px;
+    min-height: 32px;
+    justify-self: start;
+    transition: color 0.2s;
   }
-  .rod__nav a:hover {
-    text-decoration: underline;
-    text-underline-offset: 3px;
+  .rod a:hover {
+    color: #e9b7ad;
   }
   .rod__fim {
     display: flex;
     justify-content: space-between;
-    gap: 16px 40px;
+    gap: 8px 32px;
     flex-wrap: wrap;
-    margin-top: 32px;
+    margin-top: clamp(48px, 6vw, 88px);
+    padding-top: 14px;
+    border-top: 1px solid rgba(244, 240, 236, 0.2);
     font-size: 11px;
-    color: #8f8f8a;
+    color: #c9b8bc;
   }
-  .rod__fim p:last-child {
-    max-width: 60ch;
-  }
-  @media (max-width: 760px) {
-    .rod__marca {
-      white-space: normal;
-      font-size: 24vw;
-      line-height: 0.82;
+  @media (max-width: 900px) {
+    .rod__topo {
+      grid-template-columns: 1fr;
     }
   }
   @media (max-width: 560px) {
-    .rod__nav {
-      display: grid;
+    .rod__cols {
       grid-template-columns: 1fr 1fr;
+    }
+    .rod a {
+      min-height: 44px;
     }
   }
 </style>

@@ -99,8 +99,10 @@ const servicos = [
     font-weight: 500;
   }
   .larga {
+    border-radius: var(--raio);
+    overflow: hidden;
     aspect-ratio: 21 / 9;
-    background: #cfcfca;
+    background: var(--ph-hero);
     margin-block: clamp(64px, 9vw, 140px);
   }
   .historia {
@@ -113,8 +115,10 @@ const servicos = [
     max-width: 38ch;
   }
   .historia__img {
+    border-radius: var(--raio);
+    overflow: hidden;
     aspect-ratio: 4 / 5;
-    background: #d6d6d1;
+    background: var(--ph-1);
   }
   .serv {
     padding-block: clamp(96px, 12vw, 200px);

@@ -76,14 +76,16 @@ const dataCurta = (d: Date) =>
     text-decoration: none;
   }
   .miniatura {
+    border-radius: var(--raio);
+    overflow: hidden;
     aspect-ratio: 4 / 3;
-    background: #d6d6d1;
+    background: var(--ph-1);
   }
   .miniatura[data-tom='1'] {
-    background: #cbcbc6;
+    background: var(--ph-2);
   }
   .miniatura[data-tom='2'] {
-    background: #dfdfdb;
+    background: var(--ph-3);
   }
   .tit {
     display: grid;
@@ -97,7 +99,7 @@ const dataCurta = (d: Date) =>
     transition: opacity 0.2s;
   }
   a:hover .tit__h {
-    opacity: 0.55;
+    color: var(--vinho);
   }
   time {
     justify-self: end;

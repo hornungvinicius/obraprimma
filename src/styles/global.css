@@ -2,17 +2,28 @@
 @import '@fontsource-variable/archivo/wdth-italic.css';
 
 :root {
-  --bg: #f2f2ef;
-  --ink: #121212;
-  --mid: #75756f;
-  --line: #d4d4cf;
-  --soft: #e6e6e2;
-  --alerta: #b4321e;
+  /* cores tiradas da logo */
+  --ameixa: #583a42; /* moldura e letreiro */
+  --vinho: #6d2f30; /* o quadrado */
+  --creme: #f4f0ec;
+
+  --bg: var(--creme);
+  --ink: var(--ameixa);
+  --mid: #7e666e;
+  --line: rgba(88, 58, 66, 0.2);
+  --soft: #e9e2df;
+  --alerta: #c2410c;
+
+  /* blocos do wireframe, cinzas puxados para o ameixa */
+  --ph-1: #ddd3d1;
+  --ph-2: #d3c7c6;
+  --ph-3: #e6dedb;
+  --ph-hero: #d6cbc9;
 
   --fonte: 'Archivo Variable', 'Helvetica Neue', Arial, sans-serif;
   --g: clamp(16px, 2.2vw, 32px); /* margem lateral */
   --gap: clamp(12px, 1.3vw, 20px); /* espaço entre imagens */
-  --topo: 56px;
+  --topo: 80px;
   --raio: 14px;
   color-scheme: light;
 }
@@ -81,6 +92,7 @@ a {
 .titulo em {
   font-style: italic;
   font-weight: 300;
+  color: var(--vinho);
 }
 .grande {
   font-size: clamp(1.35rem, 2.3vw, 2.15rem);
@@ -114,7 +126,7 @@ a {
   transition: opacity 0.2s;
 }
 .lk:hover {
-  opacity: 0.55;
+  color: var(--vinho);
 }
 
 .regua {
@@ -215,7 +227,7 @@ html.js-ok [data-entra] {
   transition: transform 0.15s, opacity 0.2s;
 }
 .botao:hover {
-  opacity: 0.85;
+  background: var(--vinho);
 }
 .botao:active {
   transform: translateY(1px);
@@ -223,4 +235,13 @@ html.js-ok [data-entra] {
 .botao--claro {
   background: var(--bg);
   color: var(--ink);
+}
+.botao--claro:hover {
+  background: var(--vinho);
+  color: var(--creme);
+}
+
+::selection {
+  background: var(--vinho);
+  color: var(--creme);
 }

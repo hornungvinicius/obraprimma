@@ -100,8 +100,9 @@ const itens: { href: string; nome: string; conta?: string }[] = [
       color 0.2s;
   }
   .car__seta:hover {
-    background: var(--ink);
-    color: var(--bg);
+    background: var(--vinho);
+    border-color: var(--vinho);
+    color: var(--creme);
   }
   .car__trilho {
     display: grid;
@@ -129,14 +130,14 @@ const itens: { href: string; nome: string; conta?: string }[] = [
   .car__img {
     aspect-ratio: 4 / 5;
     border-radius: var(--raio);
-    background: #d6d6d1;
+    background: var(--ph-1);
     transition: transform 0.5s cubic-bezier(0.2, 0.7, 0.2, 1);
   }
   .car__img[data-tom='1'] {
-    background: #cbcbc6;
+    background: var(--ph-2);
   }
   .car__img[data-tom='2'] {
-    background: #dfdfdb;
+    background: var(--ph-3);
   }
   .car__item a:hover .car__img {
     transform: translateY(-4px);
