@@ -1,30 +1,18 @@
-@import '@fontsource/libre-caslon-display/400.css';
-@import '@fontsource/libre-caslon-text/400.css';
-@import '@fontsource/libre-caslon-text/400-italic.css';
-@import '@fontsource/libre-franklin/400.css';
-@import '@fontsource/libre-franklin/500.css';
-@import '@fontsource/libre-franklin/600.css';
+@import '@fontsource-variable/archivo/wdth.css';
+@import '@fontsource-variable/archivo/wdth-italic.css';
 
 :root {
-  /* Cores tiradas da bancada: passe-partout, tinta, nogueira, sangue-de-boi */
-  --papel: #f1ece3;
-  --papel-2: #e8e1d5;
-  --tinta: #1f1a16;
-  --tinta-2: #5a5148;
-  --linha: rgba(31, 26, 22, 0.16);
-  --sangue: #8a2e1d;
-  --nogueira: #2a211b;
-  --nogueira-2: #3a2e25;
-  --ouro: #c2a066;
-  --sobre-escuro: #efe7da;
+  --bg: #f2f2ef;
+  --ink: #121212;
+  --mid: #75756f;
+  --line: #d4d4cf;
+  --soft: #e6e6e2;
+  --alerta: #b4321e;
 
-  --display: 'Libre Caslon Display', 'Libre Caslon Text', Georgia, serif;
-  --serif: 'Libre Caslon Text', Georgia, serif;
-  --sans: 'Libre Franklin', system-ui, sans-serif;
-
-  --margem: clamp(20px, 5vw, 72px);
-  --largura: 1360px;
-  --cabecalho: 76px;
+  --fonte: 'Archivo Variable', 'Helvetica Neue', Arial, sans-serif;
+  --g: clamp(16px, 2.2vw, 32px); /* margem lateral */
+  --gap: clamp(12px, 1.3vw, 20px); /* espaço entre imagens */
+  --topo: 56px;
   color-scheme: light;
 }
 
@@ -36,126 +24,104 @@
 
 html {
   -webkit-text-size-adjust: 100%;
-  scroll-padding-top: calc(var(--cabecalho) + 16px);
+  scroll-padding-top: 24px;
 }
 
 body {
   margin: 0;
-  background: var(--papel);
-  color: var(--tinta);
-  font-family: var(--sans);
-  font-size: 1.0625rem;
-  line-height: 1.6;
-  text-rendering: optimizeLegibility;
+  background: var(--bg);
+  color: var(--ink);
+  font-family: var(--fonte);
+  font-size: 15px;
+  line-height: 1.5;
   -webkit-font-smoothing: antialiased;
+  font-variation-settings: 'wdth' 100;
 }
 
 img {
   max-width: 100%;
   height: auto;
+  display: block;
 }
 
 h1,
 h2,
-h3 {
-  font-family: var(--display);
-  font-weight: 400;
-  line-height: 1.02;
-  letter-spacing: -0.012em;
-  margin: 0;
-  text-wrap: balance;
-}
-
-h1 {
-  font-size: clamp(3rem, 8.4vw, 7.6rem);
-}
-h2 {
-  font-size: clamp(2.3rem, 5vw, 4.4rem);
-}
-h3 {
-  font-family: var(--serif);
-  font-size: 1.5rem;
-  line-height: 1.2;
-  letter-spacing: 0;
-}
-
+h3,
 p {
-  margin: 0 0 1em;
-  text-wrap: pretty;
+  margin: 0;
 }
 
 a {
   color: inherit;
-  text-decoration-thickness: 1px;
-  text-underline-offset: 0.18em;
 }
 
-.wrap {
-  width: 100%;
-  max-width: var(--largura);
-  margin-inline: auto;
-  padding-inline: var(--margem);
+.pag {
+  padding-inline: var(--g);
 }
 
-.lede {
-  font-family: var(--serif);
+/* tipografia */
+.display {
+  font-size: clamp(3.6rem, 11.6vw, 12.5rem);
+  font-weight: 400;
+  font-stretch: 112%;
+  line-height: 0.84;
+  letter-spacing: -0.045em;
+  text-transform: uppercase;
+}
+.titulo {
+  font-size: clamp(2.2rem, 5.4vw, 5.6rem);
+  font-weight: 400;
+  font-stretch: 108%;
+  line-height: 0.92;
+  letter-spacing: -0.035em;
+  text-transform: uppercase;
+}
+.display em,
+.titulo em {
   font-style: italic;
-  font-size: clamp(1.25rem, 1.9vw, 1.55rem);
-  line-height: 1.4;
-  color: var(--tinta);
+  font-weight: 300;
+}
+.grande {
+  font-size: clamp(1.35rem, 2.3vw, 2.15rem);
+  line-height: 1.18;
+  letter-spacing: -0.015em;
+  font-weight: 400;
+}
+.rotulo {
+  font-size: 11px;
+  line-height: 1.35;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+}
+.cinza {
+  color: var(--mid);
 }
 
-.meta {
-  font-size: 0.8125rem;
-  line-height: 1.45;
-  color: var(--tinta-2);
-}
-
-/* link de texto com sublinhado que se desenha */
-.link {
-  font-family: var(--sans);
-  font-weight: 500;
-  text-decoration: none;
-  background: linear-gradient(currentColor, currentColor) 0 100% / 100% 1px no-repeat;
-  padding-bottom: 3px;
-  transition: background-size 0.35s cubic-bezier(0.2, 0.7, 0.2, 1);
-}
-.link:hover {
-  background-size: 0% 1px;
-  background-position: 100% 100%;
-}
-.link--seta::after {
-  content: ' →';
-  font-family: var(--sans);
-}
-
-.botao {
+/* link sublinhado, pequeno e em caixa alta */
+.lk {
+  font-size: 11px;
+  font-weight: 600;
+  letter-spacing: 0.02em;
+  text-transform: uppercase;
+  text-decoration: underline;
+  text-underline-offset: 3px;
+  text-decoration-thickness: 1px;
   display: inline-flex;
   align-items: center;
-  gap: 0.6em;
-  min-height: 48px;
-  padding: 0 1.4em;
-  border: 1px solid currentColor;
-  font-family: var(--sans);
-  font-weight: 500;
-  font-size: 0.95rem;
-  text-decoration: none;
-  transition:
-    background-color 0.2s,
-    color 0.2s,
-    transform 0.12s;
+  min-height: 44px;
+  transition: opacity 0.2s;
 }
-.botao:hover {
-  background: var(--tinta);
-  color: var(--papel);
-  border-color: var(--tinta);
+.lk:hover {
+  opacity: 0.55;
 }
-.botao:active {
-  transform: translateY(1px);
+
+.regua {
+  border-top: 1px solid var(--ink);
 }
 
 :focus-visible {
-  outline: 2px solid var(--sangue);
+  outline: 2px solid var(--ink);
   outline-offset: 3px;
 }
 
@@ -164,28 +130,12 @@ a {
   left: 12px;
   top: -60px;
   z-index: 100;
-  background: var(--tinta);
-  color: var(--papel);
+  background: var(--ink);
+  color: var(--bg);
   padding: 10px 14px;
 }
 .pular:focus {
   top: 12px;
-}
-
-/* dado ainda não confirmado com a loja */
-.confirmar {
-  display: inline-block;
-  font-family: var(--sans);
-  font-style: normal;
-  font-weight: 600;
-  font-size: 0.68rem;
-  letter-spacing: 0.06em;
-  line-height: 1;
-  color: var(--sangue);
-  border: 1px dashed var(--sangue);
-  padding: 3px 5px 2px;
-  vertical-align: 0.2em;
-  margin-left: 0.4em;
 }
 
 .sr-only {
@@ -197,12 +147,52 @@ a {
   white-space: nowrap;
 }
 
-/* conteúdo que o GSAP anima: visível por padrão, escondido só quando o script assume */
+/* dado ainda não confirmado com a loja */
+.confirmar {
+  display: inline-block;
+  font-size: 9px;
+  font-style: normal;
+  font-weight: 700;
+  letter-spacing: 0.06em;
+  line-height: 1;
+  color: var(--alerta);
+  border: 1px dashed currentColor;
+  padding: 3px 4px 2px;
+  margin-left: 0.5em;
+  vertical-align: middle;
+  text-transform: uppercase;
+}
+
+/* entrada com GSAP: só some quando o script está ativo */
 html.js [data-entra] {
   visibility: hidden;
+}
+html.js-ok [data-entra] {
+  visibility: visible;
 }
 @media (prefers-reduced-motion: reduce) {
   html.js [data-entra] {
     visibility: visible;
   }
+}
+
+/* linha de título com máscara para a entrada */
+[data-entra='linha'] {
+  display: block;
+  overflow: hidden;
+  padding: 0 0.06em 0.04em 0;
+  margin-right: -0.06em;
+}
+[data-entra='linha'] > span {
+  display: block;
+}
+
+.contagem {
+  font-size: 0.16em;
+  font-weight: 500;
+  letter-spacing: 0;
+  vertical-align: top;
+  position: relative;
+  top: 0.5em;
+  margin-left: 0.4em;
 }

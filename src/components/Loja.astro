@@ -1,0 +1,136 @@
+---
+import { site } from '../data/site';
+import Confirmar from './Confirmar.astro';
+
+interface Props {
+  titulo?: boolean;
+}
+const { titulo = true } = Astro.props;
+const horario = site.horario.valor.length
+  ? site.horario.valor.map((h) => `${h.dias}: ${h.horas}`).join(' · ')
+  : 'A definir';
+---
+
+<section class="loja pag" aria-labelledby={titulo ? 'loja-titulo' : undefined} aria-label={titulo ? undefined : 'Dados da loja'}>
+  {
+    titulo && (
+      <div class="loja__topo">
+        <h2 id="loja-titulo" class="titulo">
+          Visite <em>a loja</em>
+        </h2>
+        <p class="loja__intro">
+          Traga a peça, a foto ou o arquivo. Escolher moldura é melhor ao vivo, com a obra encostada na
+          amostra.
+        </p>
+      </div>
+    )
+  }
+
+  <dl class="loja__dados regua">
+    <div>
+      <dt class="rotulo cinza">Endereço</dt>
+      <dd>
+        {site.endereco.valor}<br />{site.cidade}, {site.uf}
+        {!site.endereco.confirmado && <Confirmar />}
+      </dd>
+    </div>
+    <div>
+      <dt class="rotulo cinza">Telefone</dt>
+      <dd>
+        <a href={site.telefoneLink}>{site.telefone.valor}</a>
+        {!site.telefone.confirmado && <Confirmar />}
+      </dd>
+    </div>
+    <div>
+      <dt class="rotulo cinza">WhatsApp</dt>
+      <dd>
+        {site.whatsappLink ? <a href={site.whatsappLink}>{site.whatsapp.valor}</a> : 'A definir'}
+        {!site.whatsapp.confirmado && <Confirmar />}
+      </dd>
+    </div>
+    <div>
+      <dt class="rotulo cinza">Horário</dt>
+      <dd>
+        {horario}
+        {!site.horario.confirmado && <Confirmar />}
+      </dd>
+    </div>
+    <div>
+      <dt class="rotulo cinza">Instagram</dt>
+      <dd><a href={site.instagram.url} rel="noopener">{site.instagram.usuario}</a></dd>
+    </div>
+  </dl>
+
+  <div class="loja__mapa">
+    <iframe
+      title="Mapa com a localização da Obra Primma em Ponta Grossa"
+      src={site.mapaEmbed}
+      loading="lazy"
+      referrerpolicy="no-referrer-when-downgrade"></iframe>
+  </div>
+  <p class="loja__abrir"><a class="lk" href={site.mapaLink} rel="noopener">Abrir no Google Maps</a></p>
+</section>
+
+<style>
+  .loja {
+    padding-block: clamp(64px, 9vw, 140px);
+  }
+  .loja__topo {
+    display: flex;
+    justify-content: space-between;
+    align-items: end;
+    gap: 24px 48px;
+    flex-wrap: wrap;
+    margin-bottom: clamp(32px, 4vw, 56px);
+  }
+  .loja__intro {
+    max-width: 34ch;
+    color: var(--mid);
+  }
+  .loja__dados {
+    display: grid;
+    grid-template-columns: repeat(5, 1fr);
+    gap: 24px;
+    margin: 0;
+    padding-top: 12px;
+  }
+  dt {
+    margin-bottom: 6px;
+  }
+  dd {
+    margin: 0;
+    font-size: 15px;
+  }
+  dd a {
+    text-underline-offset: 3px;
+  }
+  .loja__mapa {
+    margin-top: clamp(32px, 4vw, 56px);
+    aspect-ratio: 21 / 8;
+    background: var(--soft);
+  }
+  .loja__mapa iframe {
+    width: 100%;
+    height: 100%;
+    border: 0;
+    display: block;
+    filter: grayscale(1) contrast(1.05);
+  }
+  .loja__abrir {
+    margin-top: 4px;
+  }
+  @media (max-width: 1000px) {
+    .loja__dados {
+      grid-template-columns: repeat(2, 1fr);
+    }
+  }
+  @media (max-width: 560px) {
+    .loja__dados {
+      grid-template-columns: 1fr;
+      gap: 16px;
+    }
+    .loja__mapa {
+      aspect-ratio: 4 / 5;
+    }
+  }
+</style>

@@ -1,112 +1,78 @@
 ---
 import { site, nav } from '../data/site';
-import Confirmar from './Confirmar.astro';
 const ano = new Date().getFullYear();
 ---
 
 <footer class="rod">
-  <div class="wrap">
-    <div class="rod__grade">
-      <div class="rod__nome">
-        <p class="rod__marca">Obra Primma</p>
-        <p class="meta">Molduraria em {site.cidade}, {site.uf}.</p>
-      </div>
-
-      <div>
-        <p class="rod__rot">Loja</p>
-        <p>
-          {site.endereco.valor}{!site.endereco.confirmado && <Confirmar />}<br />
-          {site.cidade}, {site.uf}
-        </p>
-      </div>
-
-      <div>
-        <p class="rod__rot">Fale com a gente</p>
-        <p>
-          <a href={site.telefoneLink}>{site.telefone.valor}</a>
-          {!site.telefone.confirmado && <Confirmar />}<br />
-          <a href={site.instagram.url} rel="noopener">Instagram {site.instagram.usuario}</a><br />
-          <a href={site.facebook.url} rel="noopener">Facebook</a>
-        </p>
-      </div>
-
-      <nav aria-label="Rodapé">
-        <p class="rod__rot">Páginas</p>
-        <ul>
-          <li><a href="/">Início</a></li>
-          {
-            nav.map((i) => (
-              <li>
-                <a href={i.href}>{i.label}</a>
-              </li>
-            ))
-          }
-        </ul>
-      </nav>
+  <div class="pag">
+    <p class="rod__marca display" aria-hidden="true">Obra <em>Primma</em></p>
+    <nav class="rod__nav" aria-label="Rodapé">
+      <a class="rotulo" href="/">Início</a>
+      {nav.map((i) => <a class="rotulo" href={i.href}>{i.label}</a>)}
+      <a class="rotulo" href={site.instagram.url} rel="noopener">Instagram</a>
+      <a class="rotulo" href={site.facebook.url} rel="noopener">Facebook</a>
+    </nav>
+    <div class="rod__fim">
+      <p>© {ano} Obra Primma Molduraria, {site.cidade}, {site.uf}</p>
+      <p>Molduraria e impressão</p>
     </div>
-
-    <p class="rod__creditos">
-      © {ano} Obra Primma Molduraria. Imagens provisórias: obras em domínio público do Art Institute of
-      Chicago (CC0); foto de oficina de Art Graphics (CC BY-SA 4.0), via Wikimedia Commons.
-    </p>
   </div>
 </footer>
 
 <style>
   .rod {
-    border-top: 1px solid var(--linha);
-    padding: 64px 0 32px;
-    font-size: 0.95rem;
-  }
-  .rod__grade {
-    display: grid;
-    grid-template-columns: 1.4fr 1fr 1fr 0.8fr;
-    gap: 40px;
+    background: var(--ink);
+    color: #ededea;
+    padding: clamp(48px, 7vw, 96px) 0 24px;
+    overflow: hidden;
   }
   .rod__marca {
-    font-family: var(--display);
-    font-size: 2.2rem;
-    line-height: 1;
-    margin-bottom: 10px;
+    font-size: clamp(3rem, 14.2vw, 15.5rem);
+    white-space: nowrap;
+    margin-left: -0.04em;
   }
-  .rod__rot {
-    font-weight: 600;
-    font-size: 0.8125rem;
-    margin-bottom: 8px;
+  .rod__nav {
+    display: flex;
+    flex-wrap: wrap;
+    justify-content: space-between;
+    gap: 8px 24px;
+    border-top: 1px solid #3a3a38;
+    margin-top: clamp(32px, 4vw, 56px);
+    padding-top: 8px;
   }
-  .rod a {
+  .rod__nav a {
     text-decoration: none;
-    display: inline-block;
-    padding: 4px 0;
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
   }
-  .rod a:hover {
+  .rod__nav a:hover {
     text-decoration: underline;
+    text-underline-offset: 3px;
   }
-  .rod ul {
-    list-style: none;
-    margin: 0;
-    padding: 0;
+  .rod__fim {
+    display: flex;
+    justify-content: space-between;
+    gap: 16px 40px;
+    flex-wrap: wrap;
+    margin-top: 32px;
+    font-size: 11px;
+    color: #8f8f8a;
   }
-  .rod__creditos {
-    margin: 56px 0 0;
-    font-size: 0.75rem;
-    color: var(--tinta-2);
-    max-width: 80ch;
+  .rod__fim p:last-child {
+    max-width: 60ch;
   }
-  @media (max-width: 900px) {
-    .rod__grade {
+  @media (max-width: 760px) {
+    .rod__marca {
+      white-space: normal;
+      font-size: 24vw;
+      line-height: 0.82;
+    }
+  }
+  @media (max-width: 560px) {
+    .rod__nav {
+      display: grid;
       grid-template-columns: 1fr 1fr;
-    }
-    .rod__nome {
-      grid-column: 1 / -1;
-    }
-  }
-  @media (max-width: 480px) {
-    .rod__grade {
-      grid-template-columns: 1fr;
-    }
-    .rod a {
-      padding: 10px 0;
     }
   }
 </style>

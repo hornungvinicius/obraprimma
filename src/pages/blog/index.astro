@@ -1,130 +1,117 @@
 ---
 import Base from '../../layouts/Base.astro';
-import Quadro from '../../components/Quadro.astro';
 import { getCollection } from 'astro:content';
-import type { Moldura, Passe } from '../../data/obras';
 
 const posts = (await getCollection('blog', ({ data }) => !data.rascunho)).sort(
   (a, b) => b.data.data.getTime() - a.data.data.getTime(),
 );
-const dataBR = (d: Date) =>
-  d.toLocaleDateString('pt-BR', { day: 'numeric', month: 'long', year: 'numeric', timeZone: 'UTC' });
+const dataCurta = (d: Date) =>
+  d.toLocaleDateString('pt-BR', { day: '2-digit', month: '2-digit', year: 'numeric', timeZone: 'UTC' });
 ---
 
 <Base
   title="Blog | Obra Primma Molduraria, Ponta Grossa"
-  description="Dicas de moldura, vidro, passe-partout e impressão de quem trabalha na bancada, em Ponta Grossa, PR."
+  description="Moldura, vidro, passe-partout e impressão: perguntas do balcão de uma molduraria em Ponta Grossa, PR."
 >
-  <section class="topo">
-    <div class="wrap">
-      <h1 data-entra="texto">Blog</h1>
-      <p class="lede" data-entra="texto">
-        Perguntas que aparecem no balcão, respondidas com calma. Moldura, vidro, papel, foto antiga.
-      </p>
-    </div>
+  <section class="topo pag">
+    <h1 class="display"><span data-entra="linha"><span>Blog</span></span></h1>
   </section>
 
-  <section class="lista" aria-label="Posts">
-    <div class="wrap">
-      <ul>
-        {
-          posts.map((p, i) => (
-            <li class:list={['post', { 'post--inv': i % 2 }]}>
-              <a href={`/blog/${p.id}/`}>
-                {p.data.quadro && (
-                  <div class="post__quadro">
-                    <Quadro
-                      arte={p.data.quadro.arte}
-                      moldura={p.data.quadro.moldura as Moldura}
-                      passe={p.data.quadro.passe as Passe}
-                      alt=""
-                      sizes="(max-width: 760px) 60vw, 22vw"
-                    />
-                  </div>
-                )}
-                <div class="post__texto">
-                  <time datetime={p.data.data.toISOString()}>{dataBR(p.data.data)}</time>
-                  <h2>{p.data.titulo}</h2>
-                  <p>{p.data.descricao}</p>
-                  <span class="link link--seta">Ler</span>
-                </div>
-              </a>
-            </li>
-          ))
-        }
-      </ul>
+  <section class="lista pag" aria-label="Posts">
+    <div class="barra">
+      <p class="rotulo">Perguntas do balcão, respondidas com calma</p>
+      <p class="rotulo">Posts ({String(posts.length).padStart(2, '0')})</p>
     </div>
+    <ol>
+      {
+        posts.map((p, i) => (
+          <li>
+            <a href={`/blog/${p.id}/`}>
+              <div class="miniatura" data-tom={i % 3} />
+              <span class="rotulo">{String(i + 1).padStart(2, '0')}.</span>
+              <span class="tit">
+                <span class="tit__h">{p.data.titulo}</span>
+                <span class="cinza">{p.data.descricao}</span>
+              </span>
+              <time class="rotulo cinza" datetime={p.data.data.toISOString()}>
+                {dataCurta(p.data.data)}
+              </time>
+            </a>
+          </li>
+        ))
+      }
+    </ol>
   </section>
 </Base>
 
 <style>
   .topo {
-    padding: clamp(40px, 6vw, 96px) 0 clamp(40px, 6vw, 80px);
-  }
-  .topo .lede {
-    margin-top: 24px;
-    max-width: 34ch;
+    padding-block: clamp(8px, 2vw, 24px) clamp(24px, 3vw, 48px);
   }
   .lista {
-    padding-bottom: clamp(80px, 10vw, 150px);
+    padding-bottom: clamp(96px, 12vw, 200px);
   }
-  ul {
+  .barra {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    min-height: 44px;
+    border-top: 1px solid var(--ink);
+    border-bottom: 1px solid var(--line);
+  }
+  ol {
     list-style: none;
     margin: 0;
     padding: 0;
   }
-  .post {
-    border-top: 1px solid var(--linha);
+  li {
+    border-bottom: 1px solid var(--line);
   }
-  .post a {
+  a {
     display: grid;
-    grid-template-columns: 3fr 6fr 3fr;
-    gap: clamp(24px, 4vw, 64px);
-    align-items: center;
-    padding: clamp(40px, 5vw, 72px) 0;
+    grid-template-columns: 2fr 1fr 7fr 2fr;
+    gap: 24px;
+    align-items: start;
+    padding: var(--gap) 0;
     text-decoration: none;
   }
-  .post__quadro {
-    max-width: 300px;
+  .miniatura {
+    aspect-ratio: 4 / 3;
+    background: #d6d6d1;
   }
-  .post--inv .post__quadro {
-    grid-column: 3;
-    grid-row: 1;
+  .miniatura[data-tom='1'] {
+    background: #cbcbc6;
   }
-  .post--inv .post__texto {
-    grid-column: 2;
-    grid-row: 1;
+  .miniatura[data-tom='2'] {
+    background: #dfdfdb;
   }
-  .post__texto {
-    max-width: 38em;
+  .tit {
+    display: grid;
+    gap: 10px;
+    max-width: 40em;
+  }
+  .tit__h {
+    font-size: clamp(1.3rem, 2.2vw, 2rem);
+    letter-spacing: -0.02em;
+    line-height: 1.1;
+    transition: opacity 0.2s;
+  }
+  a:hover .tit__h {
+    opacity: 0.55;
   }
   time {
-    font-size: 0.875rem;
-    color: var(--tinta-2);
-  }
-  .post h2 {
-    font-size: clamp(1.8rem, 3.2vw, 2.8rem);
-    margin: 10px 0 16px;
-    transition: color 0.2s;
-  }
-  .post p {
-    color: var(--tinta-2);
-  }
-  .post a:hover h2 {
-    color: var(--sangue);
+    justify-self: end;
   }
   @media (max-width: 760px) {
-    .post a,
-    .post--inv a {
+    a {
       grid-template-columns: 1fr;
+      gap: 10px;
     }
-    .post--inv .post__quadro,
-    .post--inv .post__texto {
-      grid-column: auto;
-      grid-row: auto;
+    time {
+      justify-self: start;
     }
-    .post__quadro {
-      max-width: 220px;
+    .barra p:first-child {
+      display: none;
     }
   }
 </style>

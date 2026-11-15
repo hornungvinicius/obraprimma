@@ -3,7 +3,8 @@
 Site da Obra Primma, molduraria em Ponta Grossa, PR. Portfólio com páginas de Sobre, Contato e Blog.
 Nada de venda, carrinho ou preço.
 
-Feito em [Astro](https://astro.build) (site estático) com GSAP para as animações.
+Feito em [Astro](https://astro.build) (site estático), tipografia Archivo e GSAP nas animações
+(entrada do título e filtro da galeria).
 
 ## Rodar
 
@@ -34,31 +35,22 @@ todas de uma vez, `mostrarConfirmar: false`.
 | Ano de abertura e história | Não encontrado. O texto da página Sobre tem as lacunas marcadas. | `src/pages/sobre.astro` |
 | Serviços | Impressão + moldura (confirmado por vocês). Espelhos aparece no nome da loja em uma lista pública. No Google Maps a loja aparece como "Obra Primma Molduras e Quadros Fine Art". | `src/pages/sobre.astro` |
 | Categorias do portfólio | Montadas sem acesso ao Instagram. Ajustar ao que a loja mais faz (camisa de time, diploma, espelho etc.). | `src/data/obras.ts` |
-| Logo | Não encontrado. O site usa o nome escrito em Libre Caslon. | `src/components/Cabecalho.astro` |
+| Logo | Não encontrado. O site usa o nome escrito em Archivo. | `src/components/Cabecalho.astro` |
 | Domínio | Placeholder `obraprimma.com.br`. | `astro.config.mjs` |
 
-## Imagens provisórias
+## Wireframe
 
-O Instagram e o Facebook bloquearam o acesso automático, então **nenhuma foto do site é trabalho da
-loja**. Até chegarem as fotos reais:
+As imagens ainda são blocos cinza. Os projetos (`Projeto 01` a `Projeto 24`) e as categorias são
+provisórios e ficam em `src/data/obras.ts`.
 
-- As obras são pinturas, gravuras e fotos em domínio público do Art Institute of Chicago (CC0),
-  em `src/assets/obras/`. A moldura e o passe-partout em volta delas são desenhados em CSS
-  (`src/components/Quadro.astro`), com sete perfis: caixa preta, freijó, nogueira, dourada, branca,
-  carvalho e prata.
-- A foto do canto de nogueira na página Sobre é de Art Graphics, CC BY-SA 4.0, via Wikimedia Commons.
+Para colocar as fotos reais:
 
-### Como trocar pelas fotos reais
-
-1. Ponha a foto do quadro pronto em `src/assets/trabalhos/` (jpg, png ou webp).
-2. Em `src/data/obras.ts`, no item correspondente, preencha `foto: 'nome-do-arquivo'` (sem extensão)
-   e ajuste título, autor, suporte e moldura. Com `foto`, o site mostra a foto como ela é, sem a
-   moldura desenhada.
-3. Quando todas forem reais, tire a linha de créditos provisórios do rodapé
-   (`src/components/Rodape.astro`).
-
-Fotos que fariam mais diferença: a parede de amostras, a bancada, mãos cortando ou montando uma
-moldura, a fachada e umas 20 peças prontas fotografadas de frente, com luz de janela.
+1. Salve as fotos em `public/trabalhos/`.
+2. Em `src/data/obras.ts`, troque a lista gerada por itens reais com `titulo`, `categoria`, `tipo` e
+   `imagem: '/trabalhos/nome-do-arquivo.jpg'`. O componente `Peca` passa a mostrar a foto no lugar do
+   cinza.
+3. Os blocos cinza do hero, da página Sobre e dos posts estão marcados com a cor `#cfcfca` no CSS de
+   cada página.
 
 ## Blog
 
@@ -74,13 +66,13 @@ certificado".
 ```
 src/
   data/site.ts        dados da loja (endereço, telefone, horário)
-  data/obras.ts       catálogo do portfólio e categorias
-  components/         Quadro (moldura em CSS), Trabalho, Montagem, Visita, cabeçalho e rodapé
+  data/obras.ts       projetos da galeria e categorias
+  components/         Peca (item da galeria), Loja (endereço e mapa), cabeçalho e rodapé
   pages/              início, trabalhos, sobre, contato, blog
   content/blog/       posts
-  scripts/entrada.ts  animação de entrada (GSAP)
+  scripts/entrada.ts  entrada do título (GSAP)
 ```
 
-A única animação ligada à rolagem é a seção "Como um quadro é montado" na home, em que a impressão
-sai, o passe-partout entra e a moldura fecha nos cantos. Com "reduzir movimento" ligado no sistema,
+Animações: o título de cada página sobe de dentro de uma máscara ao carregar, e o filtro da página
+Trabalhos reorganiza a grade com GSAP Flip. Nada anima com a rolagem. Com "reduzir movimento" ligado,
 tudo aparece parado.

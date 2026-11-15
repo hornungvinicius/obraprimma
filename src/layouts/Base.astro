@@ -12,9 +12,9 @@ interface Props {
   schema?: Record<string, unknown>;
 }
 
-const { title, description, image = '/compartilhar.jpg', type = 'website', schema } = Astro.props;
+const { title, description, image, type = 'website', schema } = Astro.props;
 const canonical = new URL(Astro.url.pathname, Astro.site);
-const ogImage = new URL(image, Astro.site);
+const ogImage = image ? new URL(image, Astro.site) : undefined;
 
 // Só entra no schema o que está confirmado.
 const negocio: Record<string, unknown> = {
@@ -24,7 +24,6 @@ const negocio: Record<string, unknown> = {
   name: site.nomeCompleto,
   description: 'Molduraria em Ponta Grossa, PR. Impressão de reproduções de pintura, fotografia e arte, e molduras feitas na loja.',
   url: Astro.site?.href,
-  image: ogImage.href,
   areaServed: ['Ponta Grossa', 'Campos Gerais'],
   address: {
     '@type': 'PostalAddress',
@@ -49,7 +48,7 @@ const negocio: Record<string, unknown> = {
     <link rel="canonical" href={canonical} />
     <link rel="icon" href="/favicon.svg" type="image/svg+xml" />
     <link rel="sitemap" href="/sitemap-index.xml" />
-    <meta name="theme-color" content="#f1ece3" />
+    <meta name="theme-color" content="#f2f2ef" />
     <meta name="geo.region" content="BR-PR" />
     <meta name="geo.placename" content="Ponta Grossa" />
 
@@ -59,8 +58,8 @@ const negocio: Record<string, unknown> = {
     <meta property="og:title" content={title} />
     <meta property="og:description" content={description} />
     <meta property="og:url" content={canonical} />
-    <meta property="og:image" content={ogImage} />
-    <meta name="twitter:card" content="summary_large_image" />
+    {ogImage && <meta property="og:image" content={ogImage} />}
+    <meta name="twitter:card" content={ogImage ? 'summary_large_image' : 'summary'} />
 
     <script is:inline>
       document.documentElement.classList.add('js');
@@ -69,11 +68,6 @@ const negocio: Record<string, unknown> = {
         document.documentElement.classList.add('js-ok');
       }, 2500);
     </script>
-    <style is:global>
-      html.js-ok [data-entra] {
-        visibility: visible !important;
-      }
-    </style>
 
     <script type="application/ld+json" set:html={JSON.stringify(negocio)} />
     {schema && <script type="application/ld+json" set:html={JSON.stringify(schema)} />}

@@ -1,289 +1,166 @@
 ---
 import Base from '../layouts/Base.astro';
-import Quadro from '../components/Quadro.astro';
 import Confirmar from '../components/Confirmar.astro';
-import { Image } from 'astro:assets';
-import cantoNogueira from '../assets/oficina/canto-nogueira.jpg';
 import { site } from '../data/site';
 
 const servicos = [
-  {
-    nome: 'Impressão',
-    texto: 'Reprodução de pintura, fotografia e arte, em tela ou em papel, no tamanho que você precisar.',
-    confirmar: 'Tipos de papel e tela usados',
-  },
-  {
-    nome: 'Moldura sob medida',
-    texto: 'Cortada e montada na loja, a partir das réguas da parede de amostras.',
-  },
-  {
-    nome: 'Passe-partout e vidro',
-    texto: 'Para gravura, aquarela, foto e documento. Vidro comum ou antirreflexo.',
-    confirmar: 'Opções de vidro disponíveis',
-  },
-  {
-    nome: 'Tela em caixa',
-    texto: 'Reprodução em tela montada em moldura caixa, com o vão que deixa a pintura solta do quadro.',
-  },
-  {
-    nome: 'Espelhos',
-    texto: 'Espelho com moldura, no tamanho da parede.',
-    confirmar: 'Serviço citado em lista pública com o nome da loja',
-  },
+  { nome: 'Impressão', texto: 'Reprodução de pintura, fotografia e arte, em tela ou em papel, no tamanho que você precisar.', confirmar: true },
+  { nome: 'Moldura sob medida', texto: 'Cortada e montada na loja, escolhida com a obra encostada nas amostras.' },
+  { nome: 'Passe-partout e vidro', texto: 'Para gravura, aquarela, foto e documento.', confirmar: true },
+  { nome: 'Tela em caixa', texto: 'Reprodução em tela montada em moldura caixa.' },
+  { nome: 'Espelhos', texto: 'Espelho com moldura, no tamanho da parede.', confirmar: true },
 ];
 ---
 
 <Base
   title="Sobre | Obra Primma Molduraria, Ponta Grossa"
-  description="A Obra Primma é uma molduraria tradicional de Ponta Grossa, PR. Impressão de obras e molduras feitas na loja."
+  description="A Obra Primma é uma molduraria tradicional de Ponta Grossa, PR. Impressão e moldura feitas na loja."
 >
-  <section class="topo">
-    <div class="wrap topo__grade">
-      <div>
-        <h1 data-entra="texto">Sobre a loja</h1>
-        <p class="lede" data-entra="texto">
-          A Obra Primma é uma molduraria de Ponta Grossa. Quem chega com uma foto, um pôster ou só um
-          arquivo no celular sai com o quadro pronto: a impressão e a moldura são feitas aqui.
-        </p>
-      </div>
-      <div class="topo__quadro" data-entra="quadro">
-        <Quadro
-          arte="lembranca-da-italia"
-          moldura="dourada"
-          passe="preto"
-          alt="Gravura de paisagem com árvores, com passe-partout preto e moldura dourada"
-          sizes="(max-width: 900px) 80vw, 34vw"
-          eager
-        />
-      </div>
-    </div>
+  <section class="topo pag">
+    <h1 class="display"><span data-entra="linha"><span>Sobre</span></span></h1>
   </section>
 
-  <section class="historia" aria-labelledby="historia-titulo">
-    <div class="wrap historia__grade">
-      <h2 id="historia-titulo">A história</h2>
-      <div class="historia__texto">
-        <p>
-          A loja atende em Ponta Grossa desde <span class="lacuna">[ano de abertura]</span>
-          <Confirmar nota="Ano de abertura não encontrado em fonte pública" />.
-          <span class="lacuna">[Quem abriu a loja, de onde veio o nome e o que mudou de lá para cá.]</span>
-          <Confirmar nota="Texto a escrever com o dono" />
-        </p>
-        <p>
-          O trabalho segue o mesmo jeito de sempre: a obra vai para a bancada, a gente escolhe a moldura com
-          ela encostada na amostra, corta, monta e entrega. Quem quer imprimir traz o arquivo, a foto em
-          papel ou a tela que precisa de reprodução, e a impressão também sai daqui.
-        </p>
-      </div>
-    </div>
-  </section>
-
-  <section class="oficina" aria-labelledby="oficina-titulo">
-    <div class="wrap oficina__grade">
-      <figure class="oficina__a">
-        <Image
-          src={cantoNogueira}
-          alt="Canto de moldura de nogueira com o corte em 45 graus"
-          widths={[480, 800, 1200]}
-          sizes="(max-width: 900px) 92vw, 52vw"
-        />
-      </figure>
-      <div class="oficina__texto">
-        <h2 id="oficina-titulo">O canto</h2>
-        <p>
-          Moldura boa se reconhece pelo canto. As duas réguas são cortadas em 45 graus, coladas e presas por
-          trás. Se o corte sair um grau torto, aparece uma fresta que nenhum acabamento esconde.
-        </p>
-        <p>
-          Nas molduras de madeira mais largas, o canto pode levar chaveta, uma lâmina de madeira atravessada
-          que segura a junta por dentro.
-        </p>
-      </div>
-      <div class="oficina__b">
-        <Quadro
-          arte="crisantemos-hokusai"
-          moldura="freijo"
-          passe="creme"
-          alt="Gravura de crisântemos de Hokusai, com passe-partout creme e moldura de freijó"
-          sizes="(max-width: 900px) 80vw, 30vw"
-        />
-      </div>
-    </div>
-  </section>
-
-  <section class="servicos" aria-labelledby="servicos-titulo">
-    <div class="wrap servicos__grade">
-      <h2 id="servicos-titulo">O que a loja faz</h2>
-      <dl>
-        {
-          servicos.map((s) => (
-            <div>
-              <dt>{s.nome}</dt>
-              <dd>
-                {s.texto}
-                {s.confirmar && <Confirmar nota={s.confirmar} />}
-              </dd>
-            </div>
-          ))
-        }
+  <section class="texto pag" aria-label="A loja">
+    <p class="rotulo">A loja</p>
+    <div>
+      <p class="grande" data-entra="texto">
+        A Obra Primma é uma molduraria de Ponta Grossa. Quem chega com uma foto, um pôster ou só um arquivo no
+        celular sai com o quadro pronto: a impressão e a moldura são feitas aqui.
+      </p>
+      <dl class="fichas regua" data-entra="texto">
+        <div><dt class="rotulo cinza">Cidade</dt><dd>{site.cidade}, {site.uf}</dd></div>
+        <div><dt class="rotulo cinza">Desde</dt><dd>Ano a definir <Confirmar /></dd></div>
+        <div><dt class="rotulo cinza">Serviço</dt><dd>Impressão e moldura</dd></div>
       </dl>
     </div>
   </section>
 
-  <section class="convite">
-    <div class="wrap convite__grade">
-      <p class="convite__frase">
-        A loja fica em {site.cidade}. Dá para passar sem hora marcada e ver as amostras.
-        <Confirmar nota="Confirmar se atende sem hora marcada" />
+  <div class="pag"><div class="larga" data-entra="imagem"></div></div>
+
+  <section class="historia pag" aria-labelledby="historia-titulo">
+    <h2 id="historia-titulo" class="rotulo">História</h2>
+    <div class="historia__col">
+      <p>
+        [Ano de abertura, quem começou a loja, de onde veio o nome e o que mudou de lá para cá.]
+        <Confirmar nota="Texto a escrever com o dono" />
       </p>
-      <a class="link link--seta" href="/contato/">Endereço e telefone</a>
+      <p>
+        O trabalho segue o mesmo jeito de sempre: a obra vai para a bancada, a moldura é escolhida com ela
+        encostada na amostra, depois corte, montagem e entrega.
+      </p>
     </div>
+    <div class="historia__img"></div>
+  </section>
+
+  <section class="serv pag" aria-labelledby="serv-titulo">
+    <div class="barra">
+      <h2 id="serv-titulo" class="rotulo">O que a loja faz</h2>
+      <a class="lk" href="/trabalhos/">Ver trabalhos</a>
+    </div>
+    <ol>
+      {
+        servicos.map((s, i) => (
+          <li>
+            <span class="rotulo">{String(i + 1).padStart(2, '0')}.</span>
+            <h3>{s.nome}</h3>
+            <p class="cinza">
+              {s.texto}
+              {s.confirmar && <Confirmar />}
+            </p>
+          </li>
+        ))
+      }
+    </ol>
   </section>
 </Base>
 
 <style>
   .topo {
-    padding: clamp(40px, 6vw, 96px) 0 clamp(64px, 8vw, 130px);
+    padding-block: clamp(8px, 2vw, 24px) clamp(40px, 6vw, 96px);
   }
-  .topo__grade {
+  .texto,
+  .historia {
     display: grid;
-    grid-template-columns: 7fr 4fr;
-    gap: clamp(40px, 7vw, 120px);
-    align-items: center;
+    grid-template-columns: 3fr 9fr;
+    gap: 24px;
   }
-  .topo .lede {
-    margin-top: 32px;
-    max-width: 32ch;
+  .texto .grande {
+    max-width: 26em;
+  }
+  .fichas {
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
+    margin: clamp(40px, 5vw, 72px) 0 0;
+    padding-top: 12px;
+  }
+  .fichas dd {
+    margin: 4px 0 0;
+    font-weight: 500;
+  }
+  .larga {
+    aspect-ratio: 21 / 9;
+    background: #cfcfca;
+    margin-block: clamp(64px, 9vw, 140px);
   }
   .historia {
-    padding: clamp(64px, 8vw, 120px) 0;
-    border-top: 1px solid var(--linha);
-  }
-  .historia__grade {
-    display: grid;
-    grid-template-columns: 4fr 7fr;
-    gap: 40px;
-  }
-  .historia__texto {
-    font-family: var(--serif);
-    font-size: clamp(1.15rem, 1.6vw, 1.35rem);
-    line-height: 1.55;
-    max-width: 38em;
-  }
-  .lacuna {
-    background: rgba(138, 46, 29, 0.08);
-    color: var(--sangue);
-    padding: 0 4px;
-  }
-  .oficina {
-    padding: clamp(64px, 8vw, 120px) 0;
-    background: var(--papel-2);
-  }
-  .oficina__grade {
-    display: grid;
-    grid-template-columns: repeat(12, 1fr);
-    column-gap: clamp(16px, 2.4vw, 36px);
-    row-gap: 48px;
+    grid-template-columns: 3fr 4fr 5fr;
     align-items: start;
   }
-  .oficina figure {
-    margin: 0;
-  }
-  .oficina img {
-    display: block;
-    width: 100%;
-    height: auto;
-  }
-  .oficina__a {
-    grid-column: 1 / 8;
-  }
-  .oficina__texto {
-    grid-column: 9 / 13;
-    align-self: center;
-  }
-  .oficina__texto h2 {
-    margin-bottom: 24px;
-  }
-  .oficina__texto p {
-    color: var(--tinta-2);
-  }
-  .oficina__b {
-    grid-column: 4 / 9;
-  }
-  .servicos {
-    padding: clamp(64px, 8vw, 120px) 0;
-  }
-  .servicos__grade {
+  .historia__col {
     display: grid;
-    grid-template-columns: 4fr 7fr;
-    gap: 40px;
+    gap: 1em;
+    max-width: 38ch;
   }
-  .servicos dl {
-    margin: 0;
+  .historia__img {
+    aspect-ratio: 4 / 5;
+    background: #d6d6d1;
   }
-  .servicos dl div {
-    display: grid;
-    grid-template-columns: 13em 1fr;
-    gap: 24px;
-    padding: 22px 0;
-    border-top: 1px solid var(--linha);
+  .serv {
+    padding-block: clamp(96px, 12vw, 200px);
   }
-  .servicos dt {
-    font-family: var(--serif);
-    font-size: 1.3rem;
-    line-height: 1.3;
-  }
-  .servicos dd {
-    margin: 0;
-    color: var(--tinta-2);
-    padding-top: 3px;
-  }
-  .convite {
-    padding: clamp(64px, 8vw, 120px) 0;
-    background: var(--nogueira);
-    color: var(--sobre-escuro);
-  }
-  .convite__grade {
+  .barra {
     display: flex;
-    flex-wrap: wrap;
     justify-content: space-between;
-    align-items: end;
-    gap: 32px;
+    align-items: center;
+    border-bottom: 1px solid var(--ink);
   }
-  .convite__frase {
-    font-family: var(--display);
-    font-size: clamp(2rem, 4.2vw, 3.6rem);
-    line-height: 1.08;
-    max-width: 18ch;
+  ol {
+    list-style: none;
     margin: 0;
+    padding: 0;
   }
-  .convite :global(.confirmar) {
-    color: #f0a48f;
-    border-color: #f0a48f;
-    font-size: 0.8rem;
+  li {
+    display: grid;
+    grid-template-columns: 3fr 4fr 5fr;
+    gap: 16px 24px;
+    align-items: baseline;
+    padding: 18px 0;
+    border-bottom: 1px solid var(--line);
   }
-  .convite .link {
-    font-size: 1.1rem;
+  h3 {
+    font-size: clamp(1.25rem, 2vw, 1.8rem);
+    font-weight: 400;
+    letter-spacing: -0.02em;
+    line-height: 1.1;
   }
   @media (max-width: 900px) {
-    .topo__grade,
-    .historia__grade,
-    .servicos__grade {
+    .texto,
+    .historia {
       grid-template-columns: 1fr;
-    }
-    .topo__quadro {
-      max-width: 420px;
-    }
-    .oficina__a,
-    .oficina__texto,
-    .oficina__b {
-      grid-column: 1 / -1;
     }
   }
-  @media (max-width: 560px) {
-    .servicos dl div {
+  @media (max-width: 600px) {
+    .fichas {
       grid-template-columns: 1fr;
-      gap: 6px;
+      gap: 12px;
+    }
+    li {
+      grid-template-columns: 1fr;
+      gap: 4px;
+    }
+    .larga {
+      aspect-ratio: 4 / 3;
     }
   }
 </style>

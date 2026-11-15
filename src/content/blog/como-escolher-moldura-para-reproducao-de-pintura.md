@@ -2,11 +2,6 @@
 titulo: "Como escolher a moldura para uma reprodução de pintura"
 descricao: "O que olhar antes de escolher a moldura de uma reprodução em tela ou em papel. Dicas da bancada de uma molduraria de Ponta Grossa."
 data: 2026-10-21
-quadro:
-  arte: la-berceuse
-  moldura: nogueira
-  passe: flutuante
-  alt: Reprodução de La Berceuse, de Van Gogh, em tela com moldura de nogueira
 ---
 
 Quase todo mundo chega na loja com a mesma dúvida: "qual moldura combina?". A moldura combina primeiro com a obra e só depois com a sala. Se ela brigar com a pintura, não tem sofá que salve.

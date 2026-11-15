@@ -8,10 +8,6 @@ const blog = defineCollection({
       titulo: z.string(),
       descricao: z.string().max(170),
       data: z.coerce.date(),
-      // quadro de abertura: nome do arquivo em src/assets/obras + moldura + passe
-      quadro: z
-        .object({ arte: z.string(), moldura: z.string(), passe: z.string(), alt: z.string() })
-        .optional(),
       rascunho: z.boolean().default(false),
     }),
 });

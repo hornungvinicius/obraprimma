@@ -2,11 +2,6 @@
 titulo: "Vidro comum, antirreflexo ou sem vidro? O que vai na frente do quadro"
 descricao: "Quando usar vidro comum, vidro antirreflexo ou deixar o quadro sem vidro. Um guia curto para quem vai emoldurar em Ponta Grossa e região."
 data: 2026-11-04
-quadro:
-  arte: grous-na-neve
-  moldura: carvalho
-  passe: creme
-  alt: Gravura japonesa de grous na neve, com passe-partout creme e moldura de carvalho claro
 ---
 
 O vidro é a parte do quadro em que pouca gente pensa e que mais muda o resultado. Ele protege, mas também reflete. Escolher errado é o motivo de muito quadro bonito que ninguém consegue enxergar direito.

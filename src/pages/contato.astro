@@ -1,90 +1,83 @@
 ---
 import Base from '../layouts/Base.astro';
-import Visita from '../components/Visita.astro';
+import Loja from '../components/Loja.astro';
 import { site } from '../data/site';
+
+const levar = [
+  ['A peça ou o arquivo', 'Foto em papel, pôster, gravura, tela. Para imprimir, o arquivo no maior tamanho que você tiver.'],
+  ['A medida do lugar', 'Largura da parede ou do espaço sobre o móvel. Ajuda a decidir o tamanho da impressão e da moldura.'],
+  ['Uma foto da parede', 'Com luz do dia, para ver a cor do ambiente junto com as amostras.'],
+];
 ---
 
 <Base
-  title="Contato e endereço | Obra Primma Molduraria, Ponta Grossa"
+  title="Contato | Obra Primma Molduraria, Ponta Grossa"
   description="Endereço, telefone e mapa da Obra Primma, molduraria em Ponta Grossa, PR."
 >
-  <Visita titulo="Contato e endereço" nivel="h1" />
+  <section class="topo pag">
+    <h1 class="display"><span data-entra="linha"><span>Contato</span></span></h1>
+  </section>
 
-  <section class="trazer" aria-labelledby="trazer-titulo">
-    <div class="wrap trazer__grade">
-      <h2 id="trazer-titulo">O que levar na primeira visita</h2>
-      <ol>
-        <li>
-          <div><strong>A peça ou o arquivo.</strong> Foto em papel, pôster, gravura, tela. Se for imprimir, o
-          arquivo no celular ou no pen drive, no maior tamanho que você tiver.
-</div>
-        </li>
-        <li>
-          <div><strong>A medida do lugar.</strong> Largura da parede ou do espaço sobre o móvel. Ajuda a decidir
-          o tamanho da impressão e a largura da moldura.
-</div>
-        </li>
-        <li>
-          <div><strong>Uma foto da parede.</strong> Com luz do dia, para ver a cor do ambiente junto com as
-          amostras.
-</div>
-        </li>
-      </ol>
-      <p class="trazer__nota">
-        Ficou alguma dúvida antes de ir? Liga na loja, no <a href={site.telefoneLink}>{site.telefone.valor}</a>,
-        ou manda mensagem pelo <a href={site.instagram.url} rel="noopener">Instagram</a>.
-      </p>
+  <Loja titulo={false} />
+
+  <section class="levar pag" aria-labelledby="levar-titulo">
+    <div class="barra">
+      <h2 id="levar-titulo" class="rotulo">O que levar na primeira visita</h2>
+      <a class="lk" href={site.telefoneLink}>Ligar para a loja</a>
     </div>
+    <ol>
+      {
+        levar.map(([t, p], i) => (
+          <li>
+            <span class="rotulo">{String(i + 1).padStart(2, '0')}.</span>
+            <h3>{t}</h3>
+            <p class="cinza">{p}</p>
+          </li>
+        ))
+      }
+    </ol>
   </section>
 </Base>
 
 <style>
-  .trazer {
-    padding: clamp(72px, 9vw, 130px) 0;
+  .topo {
+    padding-top: clamp(8px, 2vw, 24px);
   }
-  .trazer__grade {
-    display: grid;
-    grid-template-columns: 5fr 7fr;
-    gap: 24px clamp(32px, 6vw, 96px);
+  .topo + :global(.loja) {
+    padding-top: clamp(24px, 3vw, 48px);
   }
-  .trazer h2 {
-    max-width: 12ch;
-    grid-row: span 2;
+  .levar {
+    padding-bottom: clamp(96px, 12vw, 200px);
+  }
+  .barra {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    border-bottom: 1px solid var(--ink);
   }
   ol {
+    list-style: none;
     margin: 0;
     padding: 0;
-    list-style: none;
-    counter-reset: n;
   }
   li {
-    counter-increment: n;
     display: grid;
-    grid-template-columns: 2.6em 1fr;
-    padding: 20px 0;
-    border-top: 1px solid var(--linha);
-    color: var(--tinta-2);
+    grid-template-columns: 3fr 4fr 5fr;
+    gap: 16px 24px;
+    align-items: baseline;
+    padding: 18px 0;
+    border-bottom: 1px solid var(--line);
   }
-  li::before {
-    content: counter(n, decimal-leading-zero);
-    font-family: var(--serif);
-    font-style: italic;
-    color: var(--sangue);
+  h3 {
+    font-size: clamp(1.25rem, 2vw, 1.8rem);
+    font-weight: 400;
+    letter-spacing: -0.02em;
+    line-height: 1.1;
   }
-  strong {
-    color: var(--tinta);
-    font-weight: 600;
-  }
-  .trazer__nota {
-    margin: 12px 0 0 2.6em;
-    color: var(--tinta-2);
-  }
-  @media (max-width: 900px) {
-    .trazer__grade {
+  @media (max-width: 600px) {
+    li {
       grid-template-columns: 1fr;
-    }
-    .trazer h2 {
-      grid-row: auto;
+      gap: 4px;
     }
   }
 </style>

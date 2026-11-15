@@ -1,86 +1,65 @@
 ---
-import { nav } from '../data/site';
+import { nav, site } from '../data/site';
 const atual = Astro.url.pathname;
 ---
 
-<header class="cab">
-  <div class="wrap cab__linha">
-    <a href="/" class="marca" aria-label="Obra Primma Molduraria, página inicial">
-      <span class="marca__nome">Obra Primma</span>
-      <span class="marca__ofi">molduraria</span>
-    </a>
+<header class="cab pag">
+  <a href="/" class="cab__marca rotulo" aria-label="Obra Primma, página inicial">Obra Primma</a>
+  <p class="cab__meio rotulo cinza">Molduraria · {site.cidade}, {site.uf}</p>
 
-    <button class="cab__menu" type="button" aria-expanded="false" aria-controls="menu">
-      <span class="cab__menu-txt">Menu</span>
-    </button>
+  <button class="cab__menu rotulo" type="button" aria-expanded="false" aria-controls="menu">Menu</button>
 
-    <nav id="menu" class="cab__nav" aria-label="Principal">
-      <ul>
-        {
-          nav.map((i) => (
-            <li>
-              <a href={i.href} aria-current={atual.startsWith(i.href) ? 'page' : undefined}>
-                {i.label}
-              </a>
-            </li>
-          ))
-        }
-      </ul>
-    </nav>
-  </div>
+  <nav id="menu" class="cab__nav" aria-label="Principal">
+    <ul>
+      {
+        nav.map((i) => (
+          <li>
+            <a class="rotulo" href={i.href} aria-current={atual.startsWith(i.href) ? 'page' : undefined}>
+              {i.label}
+            </a>
+          </li>
+        ))
+      }
+    </ul>
+  </nav>
 </header>
 
 <script>
-  const botao = document.querySelector<HTMLButtonElement>('.cab__menu');
-  const txt = document.querySelector('.cab__menu-txt');
-  botao?.addEventListener('click', () => {
-    const aberto = botao.getAttribute('aria-expanded') === 'true';
-    botao.setAttribute('aria-expanded', String(!aberto));
+  const b = document.querySelector<HTMLButtonElement>('.cab__menu');
+  b?.addEventListener('click', () => {
+    const aberto = b.getAttribute('aria-expanded') === 'true';
+    b.setAttribute('aria-expanded', String(!aberto));
+    b.textContent = aberto ? 'Menu' : 'Fechar';
     document.documentElement.classList.toggle('menu-aberto', !aberto);
-    if (txt) txt.textContent = aberto ? 'Menu' : 'Fechar';
   });
   document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape' && botao?.getAttribute('aria-expanded') === 'true') botao.click();
+    if (e.key === 'Escape' && b?.getAttribute('aria-expanded') === 'true') b.click();
   });
 </script>
 
 <style>
   .cab {
+    display: grid;
+    grid-template-columns: 1fr auto 1fr;
+    align-items: center;
+    min-height: var(--topo);
     position: relative;
-    z-index: 20;
+    z-index: 30;
   }
-  .cab__linha {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    min-height: var(--cabecalho);
-    gap: 24px;
-  }
-  .marca {
-    display: inline-flex;
-    align-items: baseline;
-    gap: 0.5em;
+  .cab__marca {
+    justify-self: start;
     text-decoration: none;
-    min-height: 44px;
+    font-size: 12px;
+    display: inline-flex;
     align-items: center;
+    min-height: 44px;
   }
-  .marca__nome {
-    font-family: var(--display);
-    font-size: 1.65rem;
-    letter-spacing: -0.01em;
-    line-height: 1;
-  }
-  .marca__ofi {
-    font-family: var(--serif);
-    font-style: italic;
-    font-size: 1rem;
-    color: var(--tinta-2);
-    line-height: 1;
-    transform: translateY(2px);
+  .cab__nav {
+    justify-self: end;
   }
   .cab__nav ul {
     display: flex;
-    gap: clamp(18px, 2.6vw, 40px);
+    gap: clamp(16px, 2.4vw, 36px);
     list-style: none;
     margin: 0;
     padding: 0;
@@ -89,63 +68,67 @@ const atual = Astro.url.pathname;
     display: inline-flex;
     align-items: center;
     min-height: 44px;
-    font-size: 0.95rem;
-    font-weight: 500;
     text-decoration: none;
-    background: linear-gradient(currentColor, currentColor) 0 calc(100% - 10px) / 0 1px no-repeat;
-    transition: background-size 0.3s cubic-bezier(0.2, 0.7, 0.2, 1);
   }
   .cab__nav a:hover,
   .cab__nav a[aria-current='page'] {
-    background-size: 100% 1px;
+    text-decoration: underline;
+    text-underline-offset: 3px;
   }
   .cab__menu {
     display: none;
   }
 
   @media (max-width: 760px) {
+    .cab {
+      grid-template-columns: 1fr auto;
+    }
+    .cab__meio {
+      display: none;
+    }
     .cab__menu {
       display: inline-flex;
       align-items: center;
-      min-height: 44px;
-      min-width: 64px;
       justify-content: flex-end;
+      min-height: 44px;
+      min-width: 60px;
       background: none;
       border: 0;
       padding: 0;
-      font: 500 0.95rem var(--sans);
       color: inherit;
       cursor: pointer;
       position: relative;
       z-index: 2;
     }
+    .cab__marca {
+      position: relative;
+      z-index: 2;
+    }
     .cab__nav {
+      display: none;
       position: fixed;
       inset: 0;
-      background: var(--papel);
-      padding: calc(var(--cabecalho) + 24px) var(--margem) 40px;
-      display: none;
-    }
-    :global(html.menu-aberto) .cab__nav {
-      display: block;
+      background: var(--bg);
+      padding: calc(var(--topo) + 32px) var(--g) 32px;
     }
     :global(html.menu-aberto) {
       overflow: hidden;
     }
-    .marca {
-      position: relative;
-      z-index: 2;
+    :global(html.menu-aberto) .cab__nav {
+      display: block;
     }
     .cab__nav ul {
       flex-direction: column;
-      gap: 6px;
+      gap: 4px;
     }
     .cab__nav a {
-      font-family: var(--display);
+      font-size: 13vw;
       font-weight: 400;
-      font-size: 2.6rem;
-      min-height: 60px;
-      background-position: 0 calc(100% - 8px);
+      font-stretch: 112%;
+      letter-spacing: -0.04em;
+      line-height: 1;
+      min-height: 0;
+      padding: 4px 0;
     }
   }
 </style>
