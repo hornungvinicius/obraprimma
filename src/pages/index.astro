@@ -30,7 +30,7 @@ const dataCurta = (d: Date) =>
         </h1>
         <div class="hero__base" data-entra="texto">
           <p class="hero__frase">
-            Molduraria em {site.cidade}. A gente imprime a obra e faz a moldura, as duas coisas aqui na loja.
+            Molduraria em {site.cidade}: impressão e moldura feitas aqui na loja.
           </p>
           <a class="botao botao--claro" href="/trabalhos/">Ver os trabalhos</a>
         </div>
@@ -49,7 +49,7 @@ const dataCurta = (d: Date) =>
 
   <section class="dest pag" aria-labelledby="dest-titulo">
     <div class="dest__topo">
-      <h2 id="dest-titulo" class="titulo">Da <em>bancada</em></h2>
+      <h2 id="dest-titulo" class="titulo">Da bancada</h2>
       <p class="cinza">Peças grandes, de parede inteira, impressas e montadas na loja.</p>
     </div>
     <div class="dest__grade">
@@ -69,7 +69,7 @@ const dataCurta = (d: Date) =>
 
   <section class="sobre pag" aria-labelledby="sobre-titulo">
     <div class="sobre__texto">
-      <h2 id="sobre-titulo" class="titulo">Sobre <em>a loja</em></h2>
+      <h2 id="sobre-titulo" class="titulo">Sobre a loja</h2>
       <p class="grande">
         A Obra Primma é uma molduraria de {site.cidade}. Quem chega com uma foto, um pôster ou só um arquivo
         no celular sai com o quadro pronto: a impressão e a moldura são feitas aqui.
@@ -90,10 +90,9 @@ const dataCurta = (d: Date) =>
     </div>
     <ol class="blog__lista">
       {
-        posts.map((p, i) => (
+        posts.map((p) => (
           <li>
             <a href={`/blog/${p.id}/`}>
-              <span class="rotulo">{String(i + 1).padStart(2, '0')}.</span>
               <span class="blog__tit">{p.data.titulo}</span>
               <time class="rotulo cinza" datetime={p.data.data.toISOString()}>
                 {dataCurta(p.data.data)}
@@ -135,10 +134,10 @@ const dataCurta = (d: Date) =>
     align-items: flex-end;
     gap: 20px 40px;
     flex-wrap: wrap;
-    margin-top: clamp(16px, 2vw, 28px);
+    margin-top: clamp(16px, 2vw, 32px);
   }
   .hero__frase {
-    max-width: 30em;
+    max-width: 34em;
     color: var(--ink);
     font-size: clamp(1rem, 1.3vw, 1.2rem);
     line-height: 1.35;
@@ -157,7 +156,7 @@ const dataCurta = (d: Date) =>
   }
   .sel__grade {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: clamp(28px, 3vw, 48px) var(--gap);
   }
 
@@ -179,7 +178,7 @@ const dataCurta = (d: Date) =>
   }
   .dest__grade {
     display: grid;
-    grid-template-columns: repeat(2, 1fr);
+    grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: clamp(32px, 4vw, 64px) var(--gap);
   }
 
@@ -191,7 +190,7 @@ const dataCurta = (d: Date) =>
 
   .sobre {
     display: grid;
-    grid-template-columns: 5fr 7fr;
+    grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
     gap: clamp(32px, 5vw, 80px);
     align-items: center;
     padding-top: clamp(96px, 12vw, 200px);
@@ -220,16 +219,16 @@ const dataCurta = (d: Date) =>
   }
   .blog__lista a {
     display: grid;
-    grid-template-columns: 3fr 7fr 2fr;
+    grid-template-columns: minmax(0, 1fr) auto;
     gap: 16px;
     align-items: baseline;
-    padding: 18px 0;
+    padding: 20px 0;
     text-decoration: none;
   }
   .blog__tit {
     font-size: clamp(1.15rem, 1.8vw, 1.6rem);
     letter-spacing: -0.015em;
-    line-height: 1.2;
+    line-height: 1.3;
     transition: opacity 0.2s;
   }
   .blog__lista a:hover .blog__tit {
@@ -241,10 +240,10 @@ const dataCurta = (d: Date) =>
 
   @media (max-width: 900px) {
     .sel__grade {
-      grid-template-columns: repeat(2, 1fr);
+      grid-template-columns: repeat(2, minmax(0, 1fr));
     }
     .sobre {
-      grid-template-columns: 1fr;
+      grid-template-columns: minmax(0, 1fr);
     }
   }
   @media (max-width: 760px) {
@@ -253,10 +252,10 @@ const dataCurta = (d: Date) =>
       min-height: calc(100svh - var(--topo) - 80px);
     }
     .dest__grade {
-      grid-template-columns: 1fr;
+      grid-template-columns: minmax(0, 1fr);
     }
     .blog__lista a {
-      grid-template-columns: 1fr;
+      grid-template-columns: minmax(0, 1fr);
       gap: 4px;
     }
     .blog__lista time {

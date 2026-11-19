@@ -16,7 +16,7 @@ const horario = site.horario.valor.length
     titulo && (
       <div class="loja__topo">
         <h2 id="loja-titulo" class="titulo">
-          Visite <em>a loja</em>
+          Visite a loja
         </h2>
         <p class="loja__intro">
           Traga a peça, a foto ou o arquivo. Escolher moldura é melhor ao vivo, com a obra encostada na
@@ -89,17 +89,17 @@ const horario = site.horario.valor.length
   }
   .loja__dados {
     display: grid;
-    grid-template-columns: repeat(5, 1fr);
+    grid-template-columns: repeat(5, minmax(0, 1fr));
     gap: 24px;
     margin: 0;
     padding-top: 12px;
   }
   dt {
-    margin-bottom: 6px;
+    margin-bottom: 8px;
   }
   dd {
     margin: 0;
-    font-size: 15px;
+    font-size: var(--t-corpo);
   }
   dd a {
     text-underline-offset: 3px;
@@ -123,12 +123,12 @@ const horario = site.horario.valor.length
   }
   @media (max-width: 1000px) {
     .loja__dados {
-      grid-template-columns: repeat(2, 1fr);
+      grid-template-columns: repeat(2, minmax(0, 1fr));
     }
   }
   @media (max-width: 560px) {
     .loja__dados {
-      grid-template-columns: 1fr;
+      grid-template-columns: minmax(0, 1fr);
       gap: 16px;
     }
     .loja__mapa {

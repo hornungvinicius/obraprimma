@@ -27,9 +27,8 @@ const levar = [
     </div>
     <ol>
       {
-        levar.map(([t, p], i) => (
+        levar.map(([t, p]) => (
           <li>
-            <span class="rotulo">{String(i + 1).padStart(2, '0')}.</span>
             <h3>{t}</h3>
             <p class="cinza">{p}</p>
           </li>
@@ -62,10 +61,10 @@ const levar = [
   }
   li {
     display: grid;
-    grid-template-columns: 3fr 4fr 5fr;
+    grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
     gap: 16px 24px;
     align-items: baseline;
-    padding: 18px 0;
+    padding: 20px 0;
     border-bottom: 1px solid var(--line);
   }
   h3 {
@@ -76,7 +75,7 @@ const levar = [
   }
   @media (max-width: 600px) {
     li {
-      grid-template-columns: 1fr;
+      grid-template-columns: minmax(0, 1fr);
       gap: 4px;
     }
   }

@@ -59,9 +59,8 @@ const servicos = [
     </div>
     <ol>
       {
-        servicos.map((s, i) => (
+        servicos.map((s) => (
           <li>
-            <span class="rotulo">{String(i + 1).padStart(2, '0')}.</span>
             <h3>{s.nome}</h3>
             <p class="cinza">
               {s.texto}
@@ -81,7 +80,7 @@ const servicos = [
   .texto,
   .historia {
     display: grid;
-    grid-template-columns: 3fr 9fr;
+    grid-template-columns: minmax(0, 3fr) minmax(0, 9fr);
     gap: 24px;
   }
   .texto .grande {
@@ -89,7 +88,7 @@ const servicos = [
   }
   .fichas {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: 24px;
     margin: clamp(40px, 5vw, 72px) 0 0;
     padding-top: 12px;
@@ -106,7 +105,7 @@ const servicos = [
     margin-block: clamp(64px, 9vw, 140px);
   }
   .historia {
-    grid-template-columns: 3fr 4fr 5fr;
+    grid-template-columns: minmax(0, 3fr) minmax(0, 4fr) minmax(0, 5fr);
     align-items: start;
   }
   .historia__col {
@@ -136,10 +135,10 @@ const servicos = [
   }
   li {
     display: grid;
-    grid-template-columns: 3fr 4fr 5fr;
+    grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
     gap: 16px 24px;
     align-items: baseline;
-    padding: 18px 0;
+    padding: 20px 0;
     border-bottom: 1px solid var(--line);
   }
   h3 {
@@ -151,16 +150,16 @@ const servicos = [
   @media (max-width: 900px) {
     .texto,
     .historia {
-      grid-template-columns: 1fr;
+      grid-template-columns: minmax(0, 1fr);
     }
   }
   @media (max-width: 600px) {
     .fichas {
-      grid-template-columns: 1fr;
+      grid-template-columns: minmax(0, 1fr);
       gap: 12px;
     }
     li {
-      grid-template-columns: 1fr;
+      grid-template-columns: minmax(0, 1fr);
       gap: 4px;
     }
     .larga {

@@ -1,0 +1,52 @@
+# Obra Primma, design model (Hue). Fonte: src/styles/global.css e a logo da loja.
+name: obra-primma
+source: local codebase + logo
+mode: light-only   # o site não tem tema escuro; o rodapé ameixa é a única superfície escura
+fonts:
+  sans: { family: "Archivo Variable", load: "@fontsource-variable/archivo (wdth.css + wdth-italic.css)", axes: [wght, wdth] }
+  mono_for_code: false
+  mono_for_metrics: false
+primitives:
+  color:
+    ameixa: "#583A42"
+    vinho: "#6D2F30"
+    branco-rosado: "#F7F5F6"
+    ameixa-suave: "#6F5760"
+    rosado: "#C9B8BC"
+    rosa: "#E9B7AD"
+    alerta: "#C2410C"
+    ph: ["#DED5D6", "#D4C9CB", "#E7E0E1", "#D7CDCF"]
+  space: [4, 8, 12, 16, 20, 24, 32, 48, 64, 96, 200]
+  radius: { imagem: 14, botao: 999, nenhum: 0 }
+  type:
+    display: { size: "clamp(3.6rem, 11.6vw, 12.5rem)", weight: 400, stretch: "112%", leading: 0.9, tracking: "-0.045em", case: upper }
+    titulo: { size: "clamp(2.2rem, 5.4vw, 5.6rem)", weight: 400, stretch: "108%", leading: 0.92, tracking: "-0.035em", case: upper }
+    grande: { size: "clamp(1.35rem, 2.3vw, 2.15rem)", weight: 400, leading: 1.3, tracking: "-0.015em" }
+    corpo: { size: 16px, weight: 400, leading: 1.5 }
+    titulo-projeto: { size: 14px, weight: 600, leading: 1.3 }
+    legenda: { size: 13px, weight: 400, leading: 1.35 }
+    rotulo: { size: 12px, weight: 600, leading: 1.35, tracking: "0.03em", case: upper }
+  motion:
+    entrada: { ease: "expo.out", duration: 1.2s, what: "linhas do título sobem da máscara; blocos do topo abrem de baixo" }
+    filtro: { lib: "GSAP Flip", duration: 0.6s, ease: "expo.inOut" }
+    hover: { duration: 0.2s, what: "só cor (vinho)" }
+semantic:
+  bg: branco-rosado
+  texto: ameixa
+  texto-secundario: ameixa-suave
+  ativo: vinho
+  foco: vinho
+  superficie-escura: ameixa
+  texto-sobre-escura: branco-rosado
+  linha: "rgba(88, 58, 66, 0.2)"
+  linha-forte: ameixa
+layout: { margem: "clamp(16px, 2.2vw, 32px)", largura-max: 1680px, gap-imagens: "clamp(12px, 1.3vw, 20px)", entre-secoes: "clamp(96px, 12vw, 200px)" }
+components:
+  - { name: botao, source: observed }
+  - { name: link-pequeno, source: observed }
+  - { name: peca-da-galeria, source: observed }
+  - { name: carrossel-de-tipos, source: observed }
+  - { name: filtro, source: observed }
+  - { name: navegacao, source: observed }
+  - { name: rodape, source: observed }
+  - { name: marca-confirmar, source: observed }

@@ -1,6 +1,6 @@
 // Catálogo do portfólio. Por enquanto é wireframe: cada projeto aparece como um bloco cinza.
-// Quando as fotos chegarem, salve em public/trabalhos/ e preencha `imagem` com o caminho
-// (ex.: '/trabalhos/retrato-familia.jpg'). Títulos e tipos também são provisórios.
+// Quando as fotos chegarem, salve em src/assets/trabalhos/ e preencha `imagem` com o nome do arquivo
+// sem extensão (ex.: 'retrato-familia'). Títulos e tipos também são provisórios.
 
 export type Categoria = 'pintura' | 'fotografia' | 'papel' | 'objetos';
 

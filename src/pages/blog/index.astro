@@ -28,7 +28,6 @@ const dataCurta = (d: Date) =>
           <li>
             <a href={`/blog/${p.id}/`}>
               <div class="miniatura" data-tom={i % 3} />
-              <span class="rotulo">{String(i + 1).padStart(2, '0')}.</span>
               <span class="tit">
                 <span class="tit__h">{p.data.titulo}</span>
                 <span class="cinza">{p.data.descricao}</span>
@@ -69,7 +68,7 @@ const dataCurta = (d: Date) =>
   }
   a {
     display: grid;
-    grid-template-columns: 2fr 1fr 7fr 2fr;
+    grid-template-columns: minmax(0, 2fr) minmax(0, 8fr) auto;
     gap: 24px;
     align-items: start;
     padding: var(--gap) 0;
@@ -89,7 +88,7 @@ const dataCurta = (d: Date) =>
   }
   .tit {
     display: grid;
-    gap: 10px;
+    gap: 12px;
     max-width: 40em;
   }
   .tit__h {
@@ -106,8 +105,8 @@ const dataCurta = (d: Date) =>
   }
   @media (max-width: 760px) {
     a {
-      grid-template-columns: 1fr;
-      gap: 10px;
+      grid-template-columns: minmax(0, 1fr);
+      gap: 12px;
     }
     time {
       justify-self: start;

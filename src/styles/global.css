@@ -1,3 +1,6 @@
+/* Revisão 2026-11: frontend-design, impeccable, hallmark, taste, ui-ux-pro-max, better-typography.
+   Mantido de propósito (pedido do cliente / referências enviadas): rótulos e navegação em caixa alta;
+   itálico só no nome "Primma" do hero, que repete o letreiro da logo. */
 @import '@fontsource-variable/archivo/wdth.css';
 @import '@fontsource-variable/archivo/wdth-italic.css';
 
@@ -5,26 +8,35 @@
   /* cores tiradas da logo */
   --ameixa: #583a42; /* moldura e letreiro */
   --vinho: #6d2f30; /* o quadrado */
-  --creme: #f4f0ec;
+  --creme: #f7f5f6; /* fundo: branco da logo, levemente puxado para o ameixa */
+  --rosado: #c9b8bc; /* texto secundário sobre ameixa */
+  --rosa: #e9b7ad; /* hover sobre ameixa */
+  --linha-escura: rgba(247, 245, 246, 0.2);
 
   --bg: var(--creme);
   --ink: var(--ameixa);
-  --mid: #7e666e;
+  --mid: #6f5760;
   --line: rgba(88, 58, 66, 0.2);
-  --soft: #e9e2df;
+  --soft: #ebe5e6;
   --alerta: #c2410c;
 
   /* blocos do wireframe, cinzas puxados para o ameixa */
-  --ph-1: #ddd3d1;
-  --ph-2: #d3c7c6;
-  --ph-3: #e6dedb;
-  --ph-hero: #d6cbc9;
+  --ph-1: #ded5d6;
+  --ph-2: #d4c9cb;
+  --ph-3: #e7e0e1;
+  --ph-hero: #d7cdcf;
+
+  /* escala de texto por função */
+  --t-rotulo: 12px;
+  --t-legenda: 13px;
+  --t-corpo: 16px;
 
   --fonte: 'Archivo Variable', 'Helvetica Neue', Arial, sans-serif;
   --g: clamp(16px, 2.2vw, 32px); /* margem lateral */
   --gap: clamp(12px, 1.3vw, 20px); /* espaço entre imagens */
   --topo: 80px;
   --raio: 14px;
+  --largura: 1680px; /* acima disso as margens crescem, a grade não */
   color-scheme: light;
 }
 
@@ -37,6 +49,7 @@
 html {
   -webkit-text-size-adjust: 100%;
   scroll-padding-top: 24px;
+  overflow-x: clip;
 }
 
 body {
@@ -44,10 +57,11 @@ body {
   background: var(--bg);
   color: var(--ink);
   font-family: var(--fonte);
-  font-size: 15px;
+  font-size: var(--t-corpo);
   line-height: 1.5;
   -webkit-font-smoothing: antialiased;
-  font-variation-settings: 'wdth' 100;
+  -moz-osx-font-smoothing: grayscale;
+  overflow-x: clip;
 }
 
 img {
@@ -62,13 +76,25 @@ h3,
 p {
   margin: 0;
 }
+h1,
+h2,
+h3 {
+  text-wrap: balance;
+  overflow-wrap: break-word;
+  min-width: 0;
+}
+p {
+  text-wrap: pretty;
+}
 
 a {
   color: inherit;
+  text-decoration-skip-ink: auto;
+  text-underline-offset: 3px;
 }
 
 .pag {
-  padding-inline: var(--g);
+  padding-inline: max(var(--g), calc((100% - var(--largura)) / 2));
 }
 
 /* tipografia */
@@ -76,7 +102,7 @@ a {
   font-size: clamp(3.6rem, 11.6vw, 12.5rem);
   font-weight: 400;
   font-stretch: 112%;
-  line-height: 0.84;
+  line-height: 0.9;
   letter-spacing: -0.045em;
   text-transform: uppercase;
 }
@@ -88,23 +114,22 @@ a {
   letter-spacing: -0.035em;
   text-transform: uppercase;
 }
-.display em,
-.titulo em {
+.display em {
   font-style: italic;
   font-weight: 300;
   color: var(--vinho);
 }
 .grande {
   font-size: clamp(1.35rem, 2.3vw, 2.15rem);
-  line-height: 1.18;
+  line-height: 1.3;
   letter-spacing: -0.015em;
   font-weight: 400;
 }
 .rotulo {
-  font-size: 11px;
+  font-size: var(--t-rotulo);
   line-height: 1.35;
   font-weight: 600;
-  letter-spacing: 0.02em;
+  letter-spacing: 0.03em;
   text-transform: uppercase;
 }
 .cinza {
@@ -113,17 +138,17 @@ a {
 
 /* link sublinhado, pequeno e em caixa alta */
 .lk {
-  font-size: 11px;
+  font-size: var(--t-rotulo);
   font-weight: 600;
-  letter-spacing: 0.02em;
+  letter-spacing: 0.03em;
   text-transform: uppercase;
   text-decoration: underline;
-  text-underline-offset: 3px;
+  text-underline-offset: 4px;
   text-decoration-thickness: 1px;
   display: inline-flex;
   align-items: center;
   min-height: 44px;
-  transition: opacity 0.2s;
+  transition: color 0.2s;
 }
 .lk:hover {
   color: var(--vinho);
@@ -133,9 +158,10 @@ a {
   border-top: 1px solid var(--ink);
 }
 
-:focus-visible {
-  outline: 2px solid var(--ink);
-  outline-offset: 3px;
+:focus-visible,
+iframe:focus-visible {
+  outline: 2px solid var(--vinho);
+  outline-offset: 4px;
 }
 
 .pular {
@@ -145,7 +171,7 @@ a {
   z-index: 100;
   background: var(--ink);
   color: var(--bg);
-  padding: 10px 14px;
+  padding: 12px 16px;
 }
 .pular:focus {
   top: 12px;
@@ -163,14 +189,14 @@ a {
 /* dado ainda não confirmado com a loja */
 .confirmar {
   display: inline-block;
-  font-size: 9px;
+  font-size: 11px;
   font-style: normal;
   font-weight: 700;
-  letter-spacing: 0.06em;
+  letter-spacing: 0.04em;
   line-height: 1;
   color: var(--alerta);
   border: 1px dashed currentColor;
-  padding: 3px 4px 2px;
+  padding: 4px 4px 3px;
   margin-left: 0.5em;
   vertical-align: middle;
   text-transform: uppercase;
@@ -219,12 +245,16 @@ html.js-ok [data-entra] {
   border-radius: 999px;
   background: var(--ink);
   color: var(--bg);
-  font-size: 12px;
+  font-size: var(--t-rotulo);
   font-weight: 600;
-  letter-spacing: 0.02em;
+  letter-spacing: 0.03em;
   text-transform: uppercase;
   text-decoration: none;
-  transition: transform 0.15s, opacity 0.2s;
+  cursor: pointer;
+  transition:
+    transform 0.15s,
+    background-color 0.2s,
+    color 0.2s;
 }
 .botao:hover {
   background: var(--vinho);

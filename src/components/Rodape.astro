@@ -42,7 +42,7 @@ const ano = new Date().getFullYear();
   }
   .rod__topo {
     display: grid;
-    grid-template-columns: 5fr 7fr;
+    grid-template-columns: minmax(0, 5fr) minmax(0, 7fr);
     gap: 48px;
     align-items: start;
   }
@@ -52,7 +52,7 @@ const ano = new Date().getFullYear();
   }
   .rod__cols {
     display: grid;
-    grid-template-columns: repeat(3, 1fr);
+    grid-template-columns: repeat(3, minmax(0, 1fr));
     gap: 32px;
   }
   .rod__cols > * {
@@ -61,7 +61,7 @@ const ano = new Date().getFullYear();
     gap: 2px;
   }
   .rod__rot {
-    color: #c9b8bc;
+    color: var(--rosado);
     margin-bottom: 8px;
   }
   .rod a {
@@ -73,7 +73,7 @@ const ano = new Date().getFullYear();
     transition: color 0.2s;
   }
   .rod a:hover {
-    color: #e9b7ad;
+    color: var(--rosa);
   }
   .rod__fim {
     display: flex;
@@ -81,19 +81,19 @@ const ano = new Date().getFullYear();
     gap: 8px 32px;
     flex-wrap: wrap;
     margin-top: clamp(48px, 6vw, 88px);
-    padding-top: 14px;
-    border-top: 1px solid rgba(244, 240, 236, 0.2);
-    font-size: 11px;
-    color: #c9b8bc;
+    padding-top: 16px;
+    border-top: 1px solid var(--linha-escura);
+    font-size: var(--t-rotulo);
+    color: var(--rosado);
   }
   @media (max-width: 900px) {
     .rod__topo {
-      grid-template-columns: 1fr;
+      grid-template-columns: minmax(0, 1fr);
     }
   }
   @media (max-width: 560px) {
     .rod__cols {
-      grid-template-columns: 1fr 1fr;
+      grid-template-columns: repeat(2, minmax(0, 1fr));
     }
     .rod a {
       min-height: 44px;
