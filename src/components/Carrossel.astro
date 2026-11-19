@@ -9,7 +9,7 @@ const itens: { href: string; nome: string; conta?: string }[] = [
     nome: c.nome,
     conta: String(contaCategoria(c.id)).padStart(2, '0'),
   })),
-  // [CONFIRMAR] tipos que molduraria costuma fazer; manter só os que a loja faz de verdade
+  // tipos comuns em molduraria; tire os que a loja não faz
   { href: '/trabalhos/', nome: 'Espelhos' },
   { href: '/trabalhos/', nome: 'Camisas de time' },
   { href: '/trabalhos/', nome: 'Diplomas e documentos' },

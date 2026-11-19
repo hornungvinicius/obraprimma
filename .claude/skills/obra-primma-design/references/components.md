@@ -23,6 +23,3 @@ Fundo ameixa, logo clara à esquerda, três colunas (páginas, redes, loja), lin
 
 ## Lista com linha
 Título de seção em rótulo sobre linha forte; cada item separado por linha fina, 20px de respiro vertical. Sem numeração quando não é sequência.
-
-## Marca CONFIRMAR
-11px, borda tracejada laranja. Ligada por `mostrarConfirmar` em `src/data/site.ts`.

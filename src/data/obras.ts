@@ -4,7 +4,7 @@
 
 export type Categoria = 'pintura' | 'fotografia' | 'papel' | 'objetos';
 
-// [CONFIRMAR] categorias definidas sem acesso ao Instagram da loja.
+// Categorias provisórias, montadas sem acesso ao Instagram da loja.
 export const categorias: { id: Categoria; nome: string }[] = [
   { id: 'pintura', nome: 'Pintura' },
   { id: 'fotografia', nome: 'Fotografia' },

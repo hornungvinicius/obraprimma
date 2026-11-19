@@ -24,7 +24,6 @@ Todas as cores saem da logo (arquivo enviado pela loja).
 | **Rosado** | `#C9B8BC` | Texto secundário sobre o rodapé ameixa. |
 | **Rosa** | `#E9B7AD` | Hover de link sobre o rodapé ameixa. |
 | **Linha** | `rgba(88, 58, 66, 0.2)` | Divisórias finas. Divisória forte usa ameixa sólido. |
-| **Alerta** | `#C2410C` | Só a marca CONFIRMAR (dado pendente). Some quando o site for publicado de vez. |
 | Blocos do wireframe | `#DED5D6`, `#D4C9CB`, `#E7E0E1`, `#D7CDCF` | Lugar das fotos. Saem quando as fotos entrarem. |
 
 ## 3. Typography Rules
@@ -60,7 +59,6 @@ repete o letreiro manuscrito da logo; nenhum outro título usa itálico ou cor d
 - **Navegação:** logo à esquerda, links centralizados, Instagram à direita. No celular, botão
   "Menu" abre tela cheia com os links em tamanho display.
 - **Rodapé:** fundo ameixa, logo clara grande à esquerda, três colunas (páginas, redes, loja).
-- **Marca CONFIRMAR:** borda tracejada laranja, 11px. Liga e desliga em `src/data/site.ts`.
 
 ## 5. Layout Principles
 

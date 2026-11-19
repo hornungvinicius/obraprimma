@@ -24,7 +24,6 @@ Archivo Variable (eixos wght 100 a 900, wdth 62 a 125), uma família só.
 | --rosado | #C9B8BC | texto secundário sobre ameixa |
 | --rosa | #E9B7AD | hover sobre ameixa |
 | --line | rgba(88,58,66,.2) | divisória fina |
-| --alerta | #C2410C | só a marca CONFIRMAR |
 
 Só tema claro. Contrastes: ameixa/fundo 8.8:1, mid/fundo ≥ 4.5:1, fundo/ameixa (rodapé) 8.8:1.
 

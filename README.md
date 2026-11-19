@@ -20,22 +20,19 @@ Importe o repositório na Vercel. Ela reconhece Astro sozinha (build `npm run bu
 Depois de registrar o domínio, troque `site` em `astro.config.mjs` e a linha do sitemap em
 `public/robots.txt`.
 
-## O que falta confirmar com a loja
+## Dados da loja
 
-Tudo que não foi confirmado aparece no site com a marca **CONFIRMAR**. Os dados ficam em
-`src/data/site.ts`: troque o valor, mude `confirmado` para `true` e a marca some. Para esconder
-todas de uma vez, `mostrarConfirmar: false`.
+Ficam em `src/data/site.ts`. WhatsApp e horário estão vazios: preencha e a linha aparece no site
+(no bloco de endereço da home e na página Contato); vazios, não aparecem.
 
-| Dado | O que encontrei | Onde mexer |
+| Dado | Origem | Onde mexer |
 |---|---|---|
-| Endereço | Três versões em listas públicas: **Rua José Bonifácio, 511, Órfãs** (a mais repetida, CEP 84015-450), Rua Balduíno Taques, 1660, Centro (CNPJ 03.289.937/0001-17, situação *baixada*) e Rua Amazonas, 193, Estrela (só no Moovit). | `site.ts` |
-| Telefone | (42) 3223-4602, em várias listas. | `site.ts` |
-| WhatsApp | Nenhum número público. | `site.ts` |
-| Horário | Não encontrado. | `site.ts` |
-| Ano de abertura e história | Não encontrado. O texto da página Sobre tem as lacunas marcadas. | `src/pages/sobre.astro` |
-| Serviços | Impressão + moldura (confirmado por vocês). Espelhos aparece no nome da loja em uma lista pública. No Google Maps a loja aparece como "Obra Primma Molduras e Quadros Fine Art". | `src/pages/sobre.astro` |
-| Categorias do portfólio | Montadas sem acesso ao Instagram. Ajustar ao que a loja mais faz (camisa de time, diploma, espelho etc.). | `src/data/obras.ts` |
-| Domínio | Placeholder `obraprimma.com.br`. | `astro.config.mjs` |
+| Endereço | Listas públicas trazem três versões: Rua José Bonifácio, 511, Órfãs (a mais repetida, usada no site), Rua Balduíno Taques, 1660, Centro, e Rua Amazonas, 193, Estrela. | `site.ts` |
+| Telefone | (42) 3223-4602, de listas públicas. | `site.ts` |
+| WhatsApp e horário | Vazios. | `site.ts` |
+| Serviços | Página Sobre. Espelhos vem do nome da loja numa lista pública. | `src/pages/sobre.astro` |
+| Categorias do portfólio e do carrossel | Provisórias. | `src/data/obras.ts`, `src/components/Carrossel.astro` |
+| Domínio | `obraprimma.com.br` provisório. | `astro.config.mjs` |
 
 ## Logo e cores
 

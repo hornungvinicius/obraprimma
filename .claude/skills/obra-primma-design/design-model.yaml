@@ -14,7 +14,6 @@ primitives:
     ameixa-suave: "#6F5760"
     rosado: "#C9B8BC"
     rosa: "#E9B7AD"
-    alerta: "#C2410C"
     ph: ["#DED5D6", "#D4C9CB", "#E7E0E1", "#D7CDCF"]
   space: [4, 8, 12, 16, 20, 24, 32, 48, 64, 96, 200]
   radius: { imagem: 14, botao: 999, nenhum: 0 }
@@ -49,4 +48,3 @@ components:
   - { name: filtro, source: observed }
   - { name: navegacao, source: observed }
   - { name: rodape, source: observed }
-  - { name: marca-confirmar, source: observed }

@@ -1,9 +1,0 @@
----
-import { site } from '../data/site';
-interface Props {
-  nota?: string;
-}
-const { nota = 'Dado não confirmado com a loja' } = Astro.props;
----
-
-{site.mostrarConfirmar && <span class="confirmar" title={nota}>CONFIRMAR</span>}

@@ -18,7 +18,6 @@
   --mid: #6f5760;
   --line: rgba(88, 58, 66, 0.2);
   --soft: #ebe5e6;
-  --alerta: #c2410c;
 
   /* blocos do wireframe, cinzas puxados para o ameixa */
   --ph-1: #ded5d6;
@@ -186,21 +185,6 @@ iframe:focus-visible {
   white-space: nowrap;
 }
 
-/* dado ainda não confirmado com a loja */
-.confirmar {
-  display: inline-block;
-  font-size: 11px;
-  font-style: normal;
-  font-weight: 700;
-  letter-spacing: 0.04em;
-  line-height: 1;
-  color: var(--alerta);
-  border: 1px dashed currentColor;
-  padding: 4px 4px 3px;
-  margin-left: 0.5em;
-  vertical-align: middle;
-  text-transform: uppercase;
-}
 
 /* entrada com GSAP: só some quando o script está ativo */
 html.js [data-entra] {

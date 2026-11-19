@@ -2,7 +2,6 @@
 import Base from '../layouts/Base.astro';
 import Peca from '../components/Peca.astro';
 import Loja from '../components/Loja.astro';
-import Confirmar from '../components/Confirmar.astro';
 import Carrossel from '../components/Carrossel.astro';
 import { obras } from '../data/obras';
 import { site } from '../data/site';
@@ -76,11 +75,11 @@ const dataCurta = (d: Date) =>
       </p>
       <p class="cinza">
         A moldura é escolhida com a obra encostada nas amostras, depois vem o corte, a montagem e a
-        entrega. Desde <Confirmar nota="Ano de abertura não encontrado em fonte pública" />.
+        entrega.
       </p>
       <a class="lk" href="/sobre/">Mais sobre a loja</a>
     </div>
-    <div class="sobre__img" role="img" aria-label="Foto da loja (a definir)"></div>
+    <div class="sobre__img" role="img" aria-label="Foto da loja"></div>
   </section>
 
   <section class="blog pag" aria-labelledby="blog-titulo">

@@ -1,14 +1,11 @@
 ---
 import { site } from '../data/site';
-import Confirmar from './Confirmar.astro';
 
 interface Props {
   titulo?: boolean;
 }
 const { titulo = true } = Astro.props;
-const horario = site.horario.valor.length
-  ? site.horario.valor.map((h) => `${h.dias}: ${h.horas}`).join(' · ')
-  : 'A definir';
+const horario = site.horario.map((h) => `${h.dias}: ${h.horas}`);
 ---
 
 <section class="loja pag" aria-labelledby={titulo ? 'loja-titulo' : undefined} aria-label={titulo ? undefined : 'Dados da loja'}>
@@ -30,31 +27,33 @@ const horario = site.horario.valor.length
     <div>
       <dt class="rotulo cinza">Endereço</dt>
       <dd>
-        {site.endereco.valor}<br />{site.cidade}, {site.uf}
-        {!site.endereco.confirmado && <Confirmar />}
+        {site.endereco}<br />{site.cidade}, {site.uf}
       </dd>
     </div>
     <div>
       <dt class="rotulo cinza">Telefone</dt>
       <dd>
-        <a href={site.telefoneLink}>{site.telefone.valor}</a>
-        {!site.telefone.confirmado && <Confirmar />}
+        <a href={site.telefoneLink}>{site.telefone}</a>
       </dd>
     </div>
-    <div>
-      <dt class="rotulo cinza">WhatsApp</dt>
-      <dd>
-        {site.whatsappLink ? <a href={site.whatsappLink}>{site.whatsapp.valor}</a> : 'A definir'}
-        {!site.whatsapp.confirmado && <Confirmar />}
-      </dd>
-    </div>
-    <div>
-      <dt class="rotulo cinza">Horário</dt>
-      <dd>
-        {horario}
-        {!site.horario.confirmado && <Confirmar />}
-      </dd>
-    </div>
+    {
+      site.whatsappLink && (
+        <div>
+          <dt class="rotulo cinza">WhatsApp</dt>
+          <dd>
+            <a href={site.whatsappLink} rel="noopener">{site.whatsapp}</a>
+          </dd>
+        </div>
+      )
+    }
+    {
+      horario.length > 0 && (
+        <div>
+          <dt class="rotulo cinza">Horário</dt>
+          <dd>{horario.map((h) => <span class="loja__hora">{h}</span>)}</dd>
+        </div>
+      )
+    }
     <div>
       <dt class="rotulo cinza">Instagram</dt>
       <dd><a href={site.instagram.url} rel="noopener">{site.instagram.usuario}</a></dd>
@@ -89,7 +88,7 @@ const horario = site.horario.valor.length
   }
   .loja__dados {
     display: grid;
-    grid-template-columns: repeat(5, minmax(0, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(min(100%, 200px), 1fr));
     gap: 24px;
     margin: 0;
     padding-top: 12px;
@@ -100,6 +99,9 @@ const horario = site.horario.valor.length
   dd {
     margin: 0;
     font-size: var(--t-corpo);
+  }
+  .loja__hora {
+    display: block;
   }
   dd a {
     text-underline-offset: 3px;

@@ -16,7 +16,6 @@ const { title, description, image, type = 'website', schema } = Astro.props;
 const canonical = new URL(Astro.url.pathname, Astro.site);
 const ogImage = image ? new URL(image, Astro.site) : undefined;
 
-// Só entra no schema o que está confirmado.
 const negocio: Record<string, unknown> = {
   '@context': 'https://schema.org',
   '@type': 'Store',
@@ -30,11 +29,11 @@ const negocio: Record<string, unknown> = {
     addressLocality: site.cidade,
     addressRegion: site.uf,
     addressCountry: 'BR',
-    ...(site.endereco.confirmado ? { streetAddress: site.endereco.valor } : {}),
-    ...(site.cep.confirmado ? { postalCode: site.cep.valor } : {}),
+    streetAddress: site.endereco,
+    postalCode: site.cep,
   },
   sameAs: [site.instagram.url, site.facebook.url],
-  ...(site.telefone.confirmado ? { telephone: site.telefone.valor } : {}),
+  telephone: site.telefone,
 };
 ---
 

@@ -1,14 +1,13 @@
 ---
 import Base from '../layouts/Base.astro';
-import Confirmar from '../components/Confirmar.astro';
 import { site } from '../data/site';
 
 const servicos = [
-  { nome: 'Impressão', texto: 'Reprodução de pintura, fotografia e arte, em tela ou em papel, no tamanho que você precisar.', confirmar: true },
+  { nome: 'Impressão', texto: 'Reprodução de pintura, fotografia e arte, em tela ou em papel, no tamanho que você precisar.' },
   { nome: 'Moldura sob medida', texto: 'Cortada e montada na loja, escolhida com a obra encostada nas amostras.' },
-  { nome: 'Passe-partout e vidro', texto: 'Para gravura, aquarela, foto e documento.', confirmar: true },
+  { nome: 'Passe-partout e vidro', texto: 'Para gravura, aquarela, foto e documento.' },
   { nome: 'Tela em caixa', texto: 'Reprodução em tela montada em moldura caixa.' },
-  { nome: 'Espelhos', texto: 'Espelho com moldura, no tamanho da parede.', confirmar: true },
+  { nome: 'Espelhos', texto: 'Espelho com moldura, no tamanho da parede.' },
 ];
 ---
 
@@ -29,7 +28,6 @@ const servicos = [
       </p>
       <dl class="fichas regua" data-entra="texto">
         <div><dt class="rotulo cinza">Cidade</dt><dd>{site.cidade}, {site.uf}</dd></div>
-        <div><dt class="rotulo cinza">Desde</dt><dd>Ano a definir <Confirmar /></dd></div>
         <div><dt class="rotulo cinza">Serviço</dt><dd>Impressão e moldura</dd></div>
       </dl>
     </div>
@@ -38,12 +36,8 @@ const servicos = [
   <div class="pag"><div class="larga" data-entra="imagem"></div></div>
 
   <section class="historia pag" aria-labelledby="historia-titulo">
-    <h2 id="historia-titulo" class="rotulo">História</h2>
+    <h2 id="historia-titulo" class="rotulo">O trabalho</h2>
     <div class="historia__col">
-      <p>
-        [Ano de abertura, quem começou a loja, de onde veio o nome e o que mudou de lá para cá.]
-        <Confirmar nota="Texto a escrever com o dono" />
-      </p>
       <p>
         O trabalho segue o mesmo jeito de sempre: a obra vai para a bancada, a moldura é escolhida com ela
         encostada na amostra, depois corte, montagem e entrega.
@@ -64,7 +58,6 @@ const servicos = [
             <h3>{s.nome}</h3>
             <p class="cinza">
               {s.texto}
-              {s.confirmar && <Confirmar />}
             </p>
           </li>
         ))
@@ -88,7 +81,7 @@ const servicos = [
   }
   .fichas {
     display: grid;
-    grid-template-columns: repeat(3, minmax(0, 1fr));
+    grid-template-columns: repeat(2, minmax(0, 1fr));
     gap: 24px;
     margin: clamp(40px, 5vw, 72px) 0 0;
     padding-top: 12px;
