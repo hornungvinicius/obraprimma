@@ -8,6 +8,9 @@ import { obras } from '../data/obras';
 import { site } from '../data/site';
 import { getCollection } from 'astro:content';
 
+// Nome do arquivo da foto do hero em src/assets/trabalhos (sem extensão). Vazio: bloco cinza.
+const fotoHero = '';
+
 const grade = obras.slice(0, 6);
 const destaques = obras.slice(6, 10);
 
@@ -23,14 +26,8 @@ const dataCurta = (d: Date) =>
   description="Molduraria em Ponta Grossa, PR. Impressão de reprodução de pintura, fotografia e gravura, e moldura feita na loja."
 >
   <section class="hero pag">
-    <div class="hero__box" data-entra="imagem">
-      <Foto
-        nome="op-155"
-        alt="Sala de galeria com dezenas de quadros emoldurados nas paredes"
-        sizes="100vw"
-        eager
-        class="hero__foto"
-      />
+    <div class:list={['hero__box', { 'hero__box--foto': fotoHero }]} data-entra="imagem">
+      <Foto nome={fotoHero} alt="" sizes="100vw" eager class="hero__foto" />
       <div class="hero__texto">
         <h1 class="hero__titulo display">
           <span data-entra="linha"><span>Obra <em>Primma</em></span></span>
@@ -88,7 +85,7 @@ const dataCurta = (d: Date) =>
       <a class="lk" href="/sobre/">Mais sobre a loja</a>
     </div>
     <div class="sobre__img">
-      <Foto nome="op-144" alt="Parede branca de galeria com quadros emoldurados" sizes="(max-width: 900px) 100vw, 58vw" />
+      <Foto nome="" alt="Foto da loja" sizes="(max-width: 900px) 100vw, 58vw" />
     </div>
   </section>
 
@@ -141,15 +138,17 @@ const dataCurta = (d: Date) =>
     position: relative;
     width: 100%;
     padding: clamp(20px, 3vw, 44px);
+  }
+  /* com foto: escurece só o pé da imagem e o texto fica claro */
+  .hero__box--foto .hero__texto {
     padding-top: clamp(96px, 16vw, 240px);
-    /* escurece só o pé da foto, para o texto claro ler bem */
     background: linear-gradient(to top, rgba(40, 24, 29, 0.78), rgba(40, 24, 29, 0));
+  }
+  .hero__box--foto .hero__titulo,
+  .hero__box--foto .hero__frase {
     color: var(--creme);
   }
-  .hero__titulo {
-    color: var(--creme);
-  }
-  .hero__titulo :global(em) {
+  .hero__box--foto .hero__titulo :global(em) {
     color: var(--rosa);
   }
   .hero__base {
@@ -162,7 +161,6 @@ const dataCurta = (d: Date) =>
   }
   .hero__frase {
     max-width: 34em;
-    color: var(--creme);
     font-size: clamp(1rem, 1.3vw, 1.2rem);
     line-height: 1.35;
   }

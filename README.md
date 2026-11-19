@@ -47,22 +47,15 @@ A logo foi vetorizada a partir do arquivo enviado pela loja: `public/logo.svg` (
 
 Os tokens ficam no começo de `src/styles/global.css`.
 
-## Fotos provisórias
+## Fotos
 
-As imagens do site são fotos de bancos de imagem com licença aberta (CC BY e CC BY-SA, achadas pelo
-Openverse, a maioria do Flickr), em `src/assets/provisorias/`. A licença pede crédito, que está na
-página `/creditos/` (link no rodapé). Projeto sem foto aparece como bloco cinza.
+O site ainda está em wireframe: toda imagem é um bloco cinza. Para colocar as fotos da loja:
 
-Para trocar pelas fotos da loja:
-
-1. Salve a foto em `src/assets/trabalhos/` (jpg, png ou webp).
-2. Em `src/data/obras.ts`, troque o nome na lista `fotos` (ou em `imagem`) pelo nome do arquivo, sem
-   extensão. O Astro gera WebP em vários tamanhos sozinho.
-3. Hero, Sobre e carrossel usam o componente `Foto` com o nome do arquivo direto na página
-   (`src/pages/index.astro`, `src/pages/sobre.astro`, `src/components/Carrossel.astro`); posts usam
-   o campo `foto` no cabeçalho do Markdown.
-4. Quando não sobrar nenhuma provisória, apague `src/assets/provisorias/`, `src/data/creditos.ts`,
-   `src/pages/creditos.astro` e o link de créditos do rodapé.
+1. Salve a foto em `src/assets/trabalhos/` (jpg, png ou webp). O Astro gera WebP em vários tamanhos.
+2. Projetos da galeria: em `src/data/obras.ts`, preencha `imagem` com o nome do arquivo, sem extensão.
+3. Hero: `fotoHero` no começo de `src/pages/index.astro` (com foto, o texto do hero fica claro sobre
+   a imagem). Carrossel: `fotoDe` em `src/components/Carrossel.astro`. Sobre e bloco "Sobre a loja":
+   o `nome` do componente `Foto` na página. Posts: campo `foto` no cabeçalho do Markdown.
 
 ## Blog
 

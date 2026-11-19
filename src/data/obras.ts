@@ -34,17 +34,9 @@ const ordem: Categoria[] = [
   'papel', 'fotografia', 'pintura', 'papel', 'pintura', 'fotografia',
 ];
 
-// Fotos provisórias (src/assets/provisorias, créditos em src/data/creditos.ts), na mesma ordem.
-const fotos = [
-  'op-173', 'op-025', 'op-289', 'op-095', 'op-368', 'op-372',
-  'op-072', 'op-009', 'op-107', 'op-285', 'op-291', 'op-045',
-  'op-100', 'op-176', 'op-138', 'op-355', 'op-185', 'op-011',
-  'op-290', 'op-106', 'op-195', 'op-023', 'op-354', 'op-039',
-];
-
 export const obras: Obra[] = ordem.map((categoria, i) => {
   const n = String(i + 1).padStart(2, '0');
-  return { slug: `projeto-${n}`, titulo: `Projeto ${n}`, categoria, tipo: tipos[categoria], imagem: fotos[i] };
+  return { slug: `projeto-${n}`, titulo: `Projeto ${n}`, categoria, tipo: tipos[categoria] };
 });
 
 export const total = String(obras.length).padStart(2, '0');

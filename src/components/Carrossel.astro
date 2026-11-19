@@ -4,8 +4,8 @@
 import { categorias, contaCategoria } from '../data/obras';
 import Foto from './Foto.astro';
 
-// foto de cada tipo (provisória)
-const fotoDe: Record<string, string> = { pintura: 'op-195', fotografia: 'op-355', papel: 'op-138', objetos: 'op-011' };
+// foto de cada tipo: nome do arquivo em src/assets/trabalhos (sem extensão). Vazio: bloco cinza.
+const fotoDe: Record<string, string> = { pintura: '', fotografia: '', papel: '', objetos: '' };
 
 const itens: { href: string; nome: string; conta?: string; foto?: string }[] = [
   ...categorias.map((c) => ({
@@ -15,7 +15,7 @@ const itens: { href: string; nome: string; conta?: string; foto?: string }[] = [
     foto: fotoDe[c.id],
   })),
   // tipos comuns em molduraria; tire os que a loja não faz
-  { href: '/trabalhos/', nome: 'Espelhos', foto: 'op-359' },
+  { href: '/trabalhos/', nome: 'Espelhos' },
   { href: '/trabalhos/', nome: 'Camisas de time' },
   { href: '/trabalhos/', nome: 'Diplomas e documentos' },
 ];
