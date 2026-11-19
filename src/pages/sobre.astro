@@ -1,6 +1,7 @@
 ---
 import Base from '../layouts/Base.astro';
 import { site } from '../data/site';
+import Foto from '../components/Foto.astro';
 
 const servicos = [
   { nome: 'Impressão', texto: 'Reprodução de pintura, fotografia e arte, em tela ou em papel, no tamanho que você precisar.' },
@@ -33,7 +34,11 @@ const servicos = [
     </div>
   </section>
 
-  <div class="pag"><div class="larga" data-entra="imagem"></div></div>
+  <div class="pag">
+    <div class="larga" data-entra="imagem">
+      <Foto nome="op-144" alt="Parede branca de galeria com quadros emoldurados" sizes="100vw" />
+    </div>
+  </div>
 
   <section class="historia pag" aria-labelledby="historia-titulo">
     <h2 id="historia-titulo" class="rotulo">O trabalho</h2>
@@ -43,7 +48,9 @@ const servicos = [
         encostada na amostra, depois corte, montagem e entrega.
       </p>
     </div>
-    <div class="historia__img"></div>
+    <div class="historia__img">
+      <Foto nome="op-377" alt="Moldura preta vazia apoiada numa cadeira" sizes="(max-width: 900px) 100vw, 40vw" />
+    </div>
   </section>
 
   <section class="serv pag" aria-labelledby="serv-titulo">
@@ -91,6 +98,7 @@ const servicos = [
     font-weight: 500;
   }
   .larga {
+    overflow: hidden;
     border-radius: var(--raio);
     overflow: hidden;
     aspect-ratio: 21 / 9;
@@ -107,6 +115,7 @@ const servicos = [
     max-width: 38ch;
   }
   .historia__img {
+    overflow: hidden;
     border-radius: var(--raio);
     overflow: hidden;
     aspect-ratio: 4 / 5;
@@ -156,7 +165,15 @@ const servicos = [
       gap: 4px;
     }
     .larga {
+    overflow: hidden;
       aspect-ratio: 4 / 3;
     }
+  }
+
+  .larga :global(img),
+  .historia__img :global(img) {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
   }
 </style>

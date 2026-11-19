@@ -47,19 +47,22 @@ A logo foi vetorizada a partir do arquivo enviado pela loja: `public/logo.svg` (
 
 Os tokens ficam no começo de `src/styles/global.css`.
 
-## Wireframe
+## Fotos provisórias
 
-As imagens ainda são blocos cinza. Os projetos (`Projeto 01` a `Projeto 24`) e as categorias são
-provisórios e ficam em `src/data/obras.ts`.
+As imagens do site são fotos de bancos de imagem com licença aberta (CC BY e CC BY-SA, achadas pelo
+Openverse, a maioria do Flickr), em `src/assets/provisorias/`. A licença pede crédito, que está na
+página `/creditos/` (link no rodapé). Projeto sem foto aparece como bloco cinza.
 
-Para colocar as fotos reais:
+Para trocar pelas fotos da loja:
 
-1. Salve as fotos em `public/trabalhos/`.
-2. Em `src/data/obras.ts`, troque a lista gerada por itens reais com `titulo`, `categoria`, `tipo` e
-   `imagem: '/trabalhos/nome-do-arquivo.jpg'`. O componente `Peca` passa a mostrar a foto no lugar do
-   cinza.
-3. Os blocos cinza do hero, da página Sobre e dos posts estão marcados com a cor `#cfcfca` no CSS de
-   cada página.
+1. Salve a foto em `src/assets/trabalhos/` (jpg, png ou webp).
+2. Em `src/data/obras.ts`, troque o nome na lista `fotos` (ou em `imagem`) pelo nome do arquivo, sem
+   extensão. O Astro gera WebP em vários tamanhos sozinho.
+3. Hero, Sobre e carrossel usam o componente `Foto` com o nome do arquivo direto na página
+   (`src/pages/index.astro`, `src/pages/sobre.astro`, `src/components/Carrossel.astro`); posts usam
+   o campo `foto` no cabeçalho do Markdown.
+4. Quando não sobrar nenhuma provisória, apague `src/assets/provisorias/`, `src/data/creditos.ts`,
+   `src/pages/creditos.astro` e o link de créditos do rodapé.
 
 ## Blog
 

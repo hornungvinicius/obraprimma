@@ -1,6 +1,7 @@
 ---
 import Base from '../../layouts/Base.astro';
 import { getCollection, render } from 'astro:content';
+import Foto from '../../components/Foto.astro';
 
 export async function getStaticPaths() {
   const posts = await getCollection('blog', ({ data }) => !data.rascunho);
@@ -9,7 +10,7 @@ export async function getStaticPaths() {
 
 const { post } = Astro.props;
 const { Content } = await render(post);
-const { titulo, descricao, data } = post.data;
+const { titulo, descricao, data, foto } = post.data;
 const dataCurta = data.toLocaleDateString('pt-BR', {
   day: '2-digit',
   month: '2-digit',
@@ -42,7 +43,9 @@ const schema = {
       <time class="rotulo" datetime={data.toISOString()}>{dataCurta}</time>
     </div>
     <h1 class="art__tit" data-entra="texto">{titulo}</h1>
-    <div class="art__img" data-entra="imagem"></div>
+    <div class="art__img" data-entra="imagem">
+      <Foto nome={foto} alt="" sizes="100vw" eager />
+    </div>
     <div class="art__corpo">
       <Content />
     </div>
@@ -143,5 +146,10 @@ const schema = {
     .art__img {
       aspect-ratio: 4 / 3;
     }
+  }
+  .art__img :global(img) {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
   }
 </style>

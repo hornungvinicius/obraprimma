@@ -3,6 +3,7 @@ import Base from '../layouts/Base.astro';
 import Peca from '../components/Peca.astro';
 import Loja from '../components/Loja.astro';
 import Carrossel from '../components/Carrossel.astro';
+import Foto from '../components/Foto.astro';
 import { obras } from '../data/obras';
 import { site } from '../data/site';
 import { getCollection } from 'astro:content';
@@ -23,6 +24,13 @@ const dataCurta = (d: Date) =>
 >
   <section class="hero pag">
     <div class="hero__box" data-entra="imagem">
+      <Foto
+        nome="op-155"
+        alt="Sala de galeria com dezenas de quadros emoldurados nas paredes"
+        sizes="100vw"
+        eager
+        class="hero__foto"
+      />
       <div class="hero__texto">
         <h1 class="hero__titulo display">
           <span data-entra="linha"><span>Obra <em>Primma</em></span></span>
@@ -79,7 +87,9 @@ const dataCurta = (d: Date) =>
       </p>
       <a class="lk" href="/sobre/">Mais sobre a loja</a>
     </div>
-    <div class="sobre__img" role="img" aria-label="Foto da loja"></div>
+    <div class="sobre__img">
+      <Foto nome="op-144" alt="Parede branca de galeria com quadros emoldurados" sizes="(max-width: 900px) 100vw, 58vw" />
+    </div>
   </section>
 
   <section class="blog pag" aria-labelledby="blog-titulo">
@@ -120,12 +130,27 @@ const dataCurta = (d: Date) =>
     display: flex;
     align-items: flex-end;
   }
+  .hero__box :global(.hero__foto) {
+    position: absolute;
+    inset: 0;
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
+  }
   .hero__texto {
+    position: relative;
     width: 100%;
     padding: clamp(20px, 3vw, 44px);
+    padding-top: clamp(96px, 16vw, 240px);
+    /* escurece só o pé da foto, para o texto claro ler bem */
+    background: linear-gradient(to top, rgba(40, 24, 29, 0.78), rgba(40, 24, 29, 0));
+    color: var(--creme);
   }
   .hero__titulo {
-    color: var(--ink);
+    color: var(--creme);
+  }
+  .hero__titulo :global(em) {
+    color: var(--rosa);
   }
   .hero__base {
     display: flex;
@@ -137,7 +162,7 @@ const dataCurta = (d: Date) =>
   }
   .hero__frase {
     max-width: 34em;
-    color: var(--ink);
+    color: var(--creme);
     font-size: clamp(1rem, 1.3vw, 1.2rem);
     line-height: 1.35;
   }
@@ -203,6 +228,12 @@ const dataCurta = (d: Date) =>
     aspect-ratio: 4 / 5;
     border-radius: var(--raio);
     background: var(--ph-hero);
+    overflow: hidden;
+  }
+  .sobre__img :global(img) {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
   }
 
   .blog {

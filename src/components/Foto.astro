@@ -1,0 +1,39 @@
+---
+// Foto otimizada pelo Astro a partir do nome do arquivo (sem extensão).
+// Procura primeiro em src/assets/trabalhos (fotos da loja) e depois em src/assets/provisorias.
+// Sem arquivo, não renderiza nada e o bloco cinza do wireframe continua no lugar.
+import { Image } from 'astro:assets';
+import type { ImageMetadata } from 'astro';
+
+interface Props {
+  nome?: string;
+  alt: string;
+  sizes?: string;
+  eager?: boolean;
+  class?: string;
+}
+const { nome, alt, sizes = '100vw', eager = false, class: cls } = Astro.props;
+
+const arquivos = import.meta.glob<{ default: ImageMetadata }>(
+  ['../assets/trabalhos/*.{jpg,jpeg,png,webp}', '../assets/provisorias/*.{jpg,jpeg,png,webp}'],
+  { eager: true },
+);
+const foto = nome
+  ? Object.entries(arquivos).find(([c]) => c.split('/').pop()!.replace(/\.\w+$/, '') === nome)?.[1].default
+  : undefined;
+const widths = foto ? [...[400, 800, 1200, 1600].filter((w) => w < foto.width), foto.width] : [];
+---
+
+{
+  foto && (
+    <Image
+      src={foto}
+      alt={alt}
+      widths={widths}
+      sizes={sizes}
+      class={cls}
+      loading={eager ? 'eager' : 'lazy'}
+      fetchpriority={eager ? 'high' : 'auto'}
+    />
+  )
+}

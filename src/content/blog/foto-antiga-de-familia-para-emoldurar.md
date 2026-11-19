@@ -2,6 +2,7 @@
 titulo: "Foto antiga de família: como trazer para emoldurar sem estragar"
 descricao: "Como transportar, guardar e emoldurar fotos antigas de família. E quando vale imprimir uma cópia e guardar o original. Da molduraria em Ponta Grossa."
 data: 2026-11-12
+foto: op-100
 ---
 
 Foto de avô, de casamento dos pais, da casa onde a família morou. É o tipo de peça que chega na loja embrulhada em guardanapo dentro da bolsa, e é justamente a que mais precisa de cuidado.

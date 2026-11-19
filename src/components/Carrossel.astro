@@ -2,15 +2,20 @@
 // Carrossel de tipos de trabalho. Rolagem nativa com encaixe (funciona no dedo e no trackpad)
 // e setas que andam um cartão por vez.
 import { categorias, contaCategoria } from '../data/obras';
+import Foto from './Foto.astro';
 
-const itens: { href: string; nome: string; conta?: string }[] = [
+// foto de cada tipo (provisória)
+const fotoDe: Record<string, string> = { pintura: 'op-195', fotografia: 'op-355', papel: 'op-138', objetos: 'op-011' };
+
+const itens: { href: string; nome: string; conta?: string; foto?: string }[] = [
   ...categorias.map((c) => ({
     href: `/trabalhos/#${c.id}`,
     nome: c.nome,
     conta: String(contaCategoria(c.id)).padStart(2, '0'),
+    foto: fotoDe[c.id],
   })),
   // tipos comuns em molduraria; tire os que a loja não faz
-  { href: '/trabalhos/', nome: 'Espelhos' },
+  { href: '/trabalhos/', nome: 'Espelhos', foto: 'op-359' },
   { href: '/trabalhos/', nome: 'Camisas de time' },
   { href: '/trabalhos/', nome: 'Diplomas e documentos' },
 ];
@@ -33,7 +38,9 @@ const itens: { href: string; nome: string; conta?: string }[] = [
       itens.map((it, i) => (
         <li class="car__item">
           <a href={it.href}>
-            <div class="car__img" data-tom={i % 3} />
+            <div class="car__img" data-tom={i % 3}>
+              <Foto nome={it.foto} alt="" sizes="(max-width: 760px) 78vw, 30vw" />
+            </div>
             <span class="car__nome rotulo">
               {it.nome} {it.conta && <span class="cinza">({it.conta})</span>}
             </span>
@@ -133,7 +140,13 @@ const itens: { href: string; nome: string; conta?: string }[] = [
     aspect-ratio: 4 / 5;
     border-radius: var(--raio);
     background: var(--ph-1);
+    overflow: hidden;
     transition: transform 0.5s cubic-bezier(0.2, 0.7, 0.2, 1);
+  }
+  .car__img :global(img) {
+    width: 100%;
+    height: 100%;
+    object-fit: cover;
   }
   .car__img[data-tom='1'] {
     background: var(--ph-2);

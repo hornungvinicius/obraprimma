@@ -2,6 +2,7 @@
 titulo: "Vidro comum, antirreflexo ou sem vidro? O que vai na frente do quadro"
 descricao: "Quando usar vidro comum, vidro antirreflexo ou deixar o quadro sem vidro. Um guia curto para quem vai emoldurar em Ponta Grossa e região."
 data: 2026-11-04
+foto: op-354
 ---
 
 O vidro é a parte do quadro em que pouca gente pensa e que mais muda o resultado. Ele protege, mas também reflete. Escolher errado é o motivo de muito quadro bonito que ninguém consegue enxergar direito.
